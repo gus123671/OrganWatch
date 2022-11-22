@@ -1,3 +1,8 @@
+/*
+	Author: Augustus Rodriguez
+	Created: 11/20/22
+*/
+
 #include <iostream>
 #include <string>
 #include <sstream>
