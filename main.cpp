@@ -29,7 +29,10 @@ int main()
 		cin >> input;
 
 		if (input == 0)
+		{
+			cout << "Thank you for using OrganWatch. Goodbye." << endl;
 			return 0;
+		}
 
 		else if (input == 1)
 		{
@@ -39,11 +42,13 @@ int main()
 
 		else if (input == 2)
 		{
+			cout << "FIXME" << endl;
 			continue;
 		}
 
 		else if (input == 3)
 		{
+			cout << "FIXME" << endl;
 			continue;
 		}
 
