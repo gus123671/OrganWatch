@@ -139,10 +139,6 @@ bool donate()
 
 	} while (true);
 
-	/*
-		This is where we'd do the insertion into our two data structures. 
-	*/
-
 	cout << "Sucessfully entered " << name << " into The Organ Donation Registry to donate their " << organsMap[organ] << "!" << endl;
 	cout << endl;
 	return true;
@@ -234,6 +230,8 @@ bool receive()
 
 	/*
 		Here, we'd instantiate a Recipient object and place it into our priority queues. 
+
+		Waiting on matching algo before proceeding
 	*/
 
 	
