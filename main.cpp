@@ -143,6 +143,9 @@ bool donate()
 	cout << "Sucessfully entered " << name << " into The Organ Donation Registry to donate their " << organsMap[organ] << "!" << endl;
 	cout << endl;
 	return true;
+
+	// FIXME: implement matching algorithm here
+
 }
 
 bool receive()
@@ -235,6 +238,7 @@ bool receive()
 		Waiting on matching algo before proceeding
 	*/
 
+	// FIXME: implement matching algorithm here
 	
 
 }

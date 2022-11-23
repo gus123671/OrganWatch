@@ -8,7 +8,8 @@
 #include <iostream>
 using namespace std;
 
-class Donor {
+class Donor 
+{
     string name;
     int age;
     string organ;

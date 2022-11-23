@@ -21,5 +21,5 @@ void PQArray::insert(int n) {
 }
 
 int PQArray::extract() {
-    this->queue[0] =
+    this->queue[0] = 
 }

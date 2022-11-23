@@ -20,11 +20,9 @@ with open("data.csv", "w", encoding="UTF8", newline='') as f:
     # write the data
     for i in range(100000):
         name = names.get_full_name()
-        age = random.randint(1, 200)
+        age = random.randint(1, 118)
         organ = random.choice(organs)
         location = random.choice(locations)
         row = [name, age, organ, location]
+        # FIXME: implement priority assignment
         writer.writerow(row)
-
-
-
