@@ -15,7 +15,8 @@ using namespace std;
 
 bool donate();
 bool receive();
-//bool showData();
+// bool showData();
+// bool loadData();
 bool validateName(string name);
 bool validateAge(string age);
 
