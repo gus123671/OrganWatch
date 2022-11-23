@@ -1,11 +1,11 @@
-import csv  
-import names
-import random
-
 # Author: Augustus Rodriguez
 # Email: augustusrodriguez007@gmail.com
 # Github: gus123671
 # Created: 11/23/22
+
+import csv  
+import names
+import random
 
 header = ["name", "age", "organ", "location", "priority"]
 organs = ["Kidney", "Liver", "Lung", "Heart"]
