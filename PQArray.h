@@ -18,6 +18,7 @@ public:
     void insert(int n);
     int extract();
     void heapifyDown(int pos);
+    int extractValid(int n);
 };
 
 
