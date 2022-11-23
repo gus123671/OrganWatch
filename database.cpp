@@ -1,9 +1,4 @@
-#include "PQArray.h"
-
-class Database
+void Database::showData()
 {
-    
-
-
-
-};
+    // FIXME
+}
