@@ -10,20 +10,25 @@
 #include <sstream>
 #include <map>
 #include <regex>
+#include <cmath>
+#include "Recipient.h"
+#include "PQArray.h"
+#include "Database.h"
+#include "Donor.h"
 
 using namespace std;
 
-bool donate();
-bool receive();
+bool donate(Database& data);
+bool receive(Database& data);
 // bool showData();
 // bool loadData();
 bool validateName(string name);
 bool validateAge(string age);
 
-
 int main()
 {
 	cout << "Welcome to the Organ Donation Registry!" << endl;
+	Database data;
 
 	int input;
 
@@ -44,7 +49,7 @@ int main()
 
 		else if (input == 1)
 		{
-			donate();
+			donate(data);
 			continue;
 		}
 
@@ -72,7 +77,7 @@ int main()
 }
 
 
-bool donate()
+bool donate(Database& data)
 {
 	/*
 		We can easily modify this section to accept input from a csv file. For development purposes, I have
@@ -140,6 +145,9 @@ bool donate()
 
 	} while (true);
 
+	// arg types are string, int, string, which are what I have so I don't think the types are the problem
+	data.donors.push_back(Donor(name, stoi(age), organsMap[organ])); // <-- Compiler error here
+
 	cout << "Sucessfully entered " << name << " into The Organ Donation Registry to donate their " << organsMap[organ] << "!" << endl;
 	cout << endl;
 	return true;
@@ -148,7 +156,7 @@ bool donate()
 
 }
 
-bool receive()
+bool receive(Database& data)
 {
 	map<int, string> organsMap;
 	organsMap[1] = "Kidney";
@@ -240,7 +248,7 @@ bool receive()
 
 	// FIXME: implement matching algorithm here
 	
-
+	return false;
 }
 
 bool validateName(string name)
@@ -256,6 +264,17 @@ bool validateName(string name)
 
 bool validateAge(string age)
 {
+	if (stoi(age) < 1 || stoi(age) > 118)
+		{
+			cout << "Invalid age. Enter an integer between 1 and 118." << endl;
+			return false;
+		}
+
+	if (std::floor(stoi(age)) != stoi(age))
+	{
+		cout << "Invalid age. Enter an integer." << endl;
+		return false;
+	}
 
 	for (char c : age) 
 	{
