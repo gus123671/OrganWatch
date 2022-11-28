@@ -145,9 +145,6 @@ bool donate(Database& data)
 
 	} while (true);
 
-	// arg types are string, int, string, which are what I have so I don't think the types are the problem
-	data.donors.push_back(Donor(name, stoi(age), organsMap[organ])); // <-- Compiler error here
-
 	cout << "Sucessfully entered " << name << " into The Organ Donation Registry to donate their " << organsMap[organ] << "!" << endl;
 	cout << endl;
 	return true;
@@ -248,7 +245,7 @@ bool receive(Database& data)
 
 	// FIXME: implement matching algorithm here
 	
-	return false;
+
 }
 
 bool validateName(string name)
