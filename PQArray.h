@@ -1,13 +1,9 @@
 //
 // Created by Nicolas Macias on 11/21/22.
 //
-#pragma once
-<<<<<<< HEAD
-=======
 
 #ifndef PQARRAY_PQARRAY_H
 #define PQARRAY_PQARRAY_H
->>>>>>> f17f5ceb4e709cb9a7707dac8accf14e18727a4a
 
 #include <vector>
 #include "Donor.h"
@@ -22,3 +18,5 @@ public:
     void heapifyDown(int pos);
     int extractValid(int n);
 };
+
+#endif //PQARRAY_PQARRAY_H
