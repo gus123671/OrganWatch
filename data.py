@@ -11,7 +11,7 @@ header = ["name", "age", "organ", "location", "priority"]
 organs = ["Kidney", "Liver", "Lung", "Heart"]
 locations = ["Southeast", "Northeast", "Southwest", "Northwest", "Midwest"]
 
-with open("data.csv", "w", encoding="UTF8", newline='') as f:
+with open("recipients.csv", "w", encoding="UTF8", newline='') as f:
     writer = csv.writer(f)
 
     # write the header
@@ -25,4 +25,20 @@ with open("data.csv", "w", encoding="UTF8", newline='') as f:
         location = random.choice(locations)
         row = [name, age, organ, location]
         # FIXME: implement priority assignment
+        writer.writerow(row)
+
+header2 = ["name", "age", "organ", "location"]
+
+
+with open("donors.csv", "w", encoding="UTF8", newline='') as f:
+    writer = csv.writer(f)
+
+    writer.writerow(header2)
+
+    for i in range(20000):
+        name = names.get_full_name()
+        age = random.randint(1, 118)
+        organ = random.choice(organs)
+        location = random.choice(locations)
+        row = [name, age, organ, location]
         writer.writerow(row)

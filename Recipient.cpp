@@ -1,6 +1,5 @@
 //
 // Created by Nicolas Macias on 11/21/22.
-// Modified by Augustus Rodriguez on 11/21/22
 //
 
 #include "Recipient.h"
