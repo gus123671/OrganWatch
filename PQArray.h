@@ -1,6 +1,7 @@
 //
 // Created by Nicolas Macias on 11/21/22.
 //
+#pragma once
 
 #ifndef PQARRAY_PQARRAY_H
 #define PQARRAY_PQARRAY_H

@@ -10,6 +10,10 @@
 #include <sstream>
 #include <map>
 #include <regex>
+#include <cmath>
+#include "Donor.h"
+#include "Recipient.h"
+#include "PQArray.h"
 
 using namespace std;
 
@@ -20,6 +24,7 @@ bool receive();
 bool validateName(string name);
 bool validateAge(string age);
 
+vector<Donor> Donor::donors; // static
 
 int main()
 {
@@ -140,6 +145,9 @@ bool donate()
 
 	} while (true);
 
+	// arg types are string, int, string, which are what I have so I don't think the types are the problem
+	Donor::donors.push_back(Donor(name, stoi(age), organsMap[organ])); // <-- Compiler error here
+
 	cout << "Sucessfully entered " << name << " into The Organ Donation Registry to donate their " << organsMap[organ] << "!" << endl;
 	cout << endl;
 	return true;
@@ -240,7 +248,7 @@ bool receive()
 
 	// FIXME: implement matching algorithm here
 	
-
+	return false;
 }
 
 bool validateName(string name)
@@ -256,6 +264,17 @@ bool validateName(string name)
 
 bool validateAge(string age)
 {
+	if (stoi(age) < 1 || stoi(age) > 118)
+		{
+			cout << "Invalid age. Enter an integer between 1 and 118." << endl;
+			return false;
+		}
+
+	if (std::floor(stoi(age)) != stoi(age))
+	{
+		cout << "Invalid age. Enter an integer." << endl;
+		return false;
+	}
 
 	for (char c : age) 
 	{

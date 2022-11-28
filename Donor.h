@@ -2,6 +2,7 @@
 // Created by Nicolas Macias on 11/21/22.
 // Modified by Augustus Rodriguez on 11/27/22
 //
+#pragma once
 
 #ifndef PQARRAY_DONOR_H
 #define PQARRAY_DONOR_H
@@ -16,12 +17,12 @@ class Donor
     int age;
     string organ;
 
-    vector<Donor> donors;
 public:
     Donor(string name, int age, string organ);
     string getName();
     int getAge();
     string getOrgan();
+    static vector<Donor> donors;
 }; 
 
 

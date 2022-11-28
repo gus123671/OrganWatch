@@ -1,3 +1,5 @@
+#pragma once
+
 #include "PQArray.h"
 #include "Donor.h"
 #include "Recipient.h"
