@@ -6,22 +6,21 @@
 #define PQARRAY_DONOR_H
 
 #include <iostream>
-#include <vector>
 using namespace std;
 
-class Donor 
-{
+class Donor {
+public:
     string name;
     int age;
     string organ;
+    string region;
 
-public:
-    Donor(string name, int age, string organ);
+    Donor(string name, int age, string organ, string region);
     string getName();
     int getAge();
     string getOrgan();
-}; 
+
+};
 
 
 #endif //PQARRAY_DONOR_H
-

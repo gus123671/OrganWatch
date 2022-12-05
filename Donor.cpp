@@ -1,14 +1,14 @@
 //
 // Created by Nicolas Macias on 11/21/22.
-// Modified by Augustus Rodriguez on 11/27/22
 //
 
 #include "Donor.h"
 
-Donor::Donor(string name, int age, string organ) {
+Donor::Donor(string name, int age, string organ, string region) {
     this->name = name;
     this->age = age;
     this->organ = organ;
+    this->region = region;
 }
 
 string Donor::getName() {

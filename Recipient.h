@@ -6,23 +6,23 @@
 #define PQARRAY_RECIPIENT_H
 
 #include <iostream>
-#include <vector>
 using namespace std;
 
-class Recipient 
-{
+class Recipient {
+public:
     string name;
     int age;
     string organ;
+    string region;
     double priority;
 
-public:
-    Recipient(string name, int age, string organ, double priority);
-
+    Recipient(string name, int age, string organ, string region, double priority);
     string getName();
     int getAge();
     string getOrgan();
+    string getRegion();
     double getPriority();
+    void print();
 };
 
 
