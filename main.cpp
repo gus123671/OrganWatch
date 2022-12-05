@@ -27,7 +27,7 @@ bool validateAge(string age);
 
 int main()
 {
-	cout << "Welcome to the Organ Donation Registry!" << endl;
+	cout << "Welcome to OrganWatch: the Organ Donation Registry!" << endl;
 	Database data;
 
 	int input;

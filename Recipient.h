@@ -25,5 +25,4 @@ public:
     double getPriority();
 };
 
-
 #endif //PQARRAY_RECIPIENT_H

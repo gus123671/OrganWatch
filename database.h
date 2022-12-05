@@ -4,7 +4,6 @@
 #include "Donor.h"
 #include "Recipient.h"
 
-
 struct Database
 {
     Database();
