@@ -4,10 +4,11 @@
 
 #include "Recipient.h"
 
-Recipient::Recipient(string name, int age, string organ, double priority) {
+Recipient::Recipient(string name, int age, string organ, string region, double priority) {
     this->name = name;
     this->age = age;
     this->organ = organ;
+    this->region = region;
     this->priority = priority;
 }
 
@@ -23,6 +24,18 @@ string Recipient::getOrgan() {
     return this->organ;
 }
 
+string Recipient::getRegion() {
+    return this->region;
+}
+
 double Recipient::getPriority() {
     return this->priority;
+}
+
+void Recipient::print() {
+    cout << name << endl;
+    cout << age << endl;
+    cout << organ << endl;
+    cout << region << endl;
+    cout << priority << endl << endl;
 }

@@ -6,15 +6,15 @@
 
 PQArray::PQArray() {}
 
-void PQArray::insert(int n) {
+void PQArray::insert(Recipient recipient) {
     // Push back new element
-    this->queue.push_back(n);
+    this->queue.push_back(recipient);
     int child = this->queue.size() - 1;
     int parent = (child - 1) / 2;
 
     // Swap up until correct position is found
-    while (parent >= 0 && this->queue[parent] < this->queue[child]) {
-        int temp = this->queue[parent];
+    while (parent >= 0 && this->queue[parent].priority < this->queue[child].priority) {
+        Recipient temp = this->queue[parent];
         this->queue[parent] = this->queue[child];
         this->queue[child] = temp;
         child = parent;
@@ -22,9 +22,9 @@ void PQArray::insert(int n) {
     }
 }
 
-int PQArray::extract() {
+Recipient PQArray::extract() {
     // Max is at the beginning of queue
-    int max = this->queue[0];
+    Recipient max = this->queue[0];
 
     // Process for heapifying down
     this->queue[0] = this->queue[this->queue.size() - 1];
@@ -76,7 +76,7 @@ void PQArray::heapifyDown(int pos) {
     } else if (!leftOnly && !twoChildren) {
         maxPos = rightPos;
     } else if (twoChildren) {
-        if (this->queue[leftPos] >= this->queue[rightPos]) {
+        if (this->queue[leftPos].priority >= this->queue[rightPos].priority) {
             maxPos = leftPos;
         } else {
             maxPos = rightPos;
@@ -84,7 +84,7 @@ void PQArray::heapifyDown(int pos) {
     }
 
     // Swap at pos and maxPos
-    int temp = this->queue[pos];
+    Recipient temp = this->queue[pos];
     this->queue[pos] = this->queue[maxPos];
     this->queue[maxPos] = temp;
 
@@ -92,9 +92,14 @@ void PQArray::heapifyDown(int pos) {
     this->heapifyDown(maxPos);
 }
 
-int PQArray::extractValid(int n) {
+Recipient PQArray::extractValid(Donor donor) {
+    // Base case
+    if (this->queue.size() == 0) {
+        return Recipient("INVALID", -1, "INVALID", "INVALID", -1);
+    }
+
     // Create vector for invalid extracts
-    vector<int> extracted;
+    vector<Recipient> extracted;
     bool empty = false;
 
     // Loop til found
@@ -103,7 +108,7 @@ int PQArray::extractValid(int n) {
         extracted.push_back(this->extract());
 
         // If valid found
-        if (extracted[extracted.size() - 1] == n) {
+        if (this->isValid(donor, extracted[extracted.size() - 1])) {
             // Reinsert elements in extracted, found
             for (int i = 0; i < extracted.size() - 1; i++) {
                 this->insert(extracted[i]);
@@ -123,6 +128,28 @@ int PQArray::extractValid(int n) {
         this->insert(extracted[i]);
     }
 
-    // Return -1 if not found
-    return -1;
+    // Return dummy invalid recipient if not found
+    return Recipient("INVALID", -1, "INVALID", "INVALID", -1);
+}
+
+bool PQArray::isValid(Donor &donor, Recipient &recipient) {
+    bool age = true;
+    if ((donor.age >= 1 && donor.age <= 12) && (recipient.age >= 13 && recipient.age <= 100)) {
+        age = false;
+    } else if ((donor.age >= 13 && donor.age <= 100) && (recipient.age >= 1 && recipient.age <= 12)) {
+        age = false;
+    }
+
+    bool region;
+    if (donor.region == recipient.region) {
+        region = true;
+    } else {
+        region = false;
+    }
+
+    if (age && region) {
+        return true;
+    } else {
+        return false;
+    }
 }
