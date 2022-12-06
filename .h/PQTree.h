@@ -5,6 +5,8 @@
 #include <vector>
 #include "TreeNode.h"
 
+using namespace std;
+
 class PQTree {
 	TreeNode* _root;
 	TreeNode* _end;

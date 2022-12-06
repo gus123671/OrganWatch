@@ -385,6 +385,7 @@ void showData(Database& d)
 void loadData(Database& d)
 {
 	d.loadDonorData("../data/donors.csv", d.donors);
+	d.loadRecipientData("../data/recipients.csv", d.recipientsArr, d.recipientsTree);
 }
 
 bool validateName(string name)

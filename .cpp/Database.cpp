@@ -61,7 +61,7 @@ void Database::loadRecipientData(std::string file, PQArray& recipientsArr, PQTre
            getline(stream, location, ',');
 
            recipientsArr.insert(Recipient(name, stoi(ageStr), organToReceive, location, 0));
-		   // recipientsTree.insert(Recipient(name, stoi(ageStr), organToReceive, location, 0));
+
        }
    }
 }
