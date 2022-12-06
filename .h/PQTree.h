@@ -11,17 +11,20 @@ class PQTree {
 	int _size = 0;
 	int _tail = 0;
 	int count = 0;
+	string binarySize = "";
+	string binarySizeTail = "";
 
-	int retrieveHighestPriority();
+	double retrieveHighestPriority();
 	void findLocation(TreeNode*& root, TreeNode*& recipient);
 	TreeNode* findLocationPass(char leftOrRight, TreeNode*& root, TreeNode*& temp);
 	void insertRecipient(char lastDigit, TreeNode*& root, TreeNode*& recipient);
 	void deleteNode();
 	void heapifyUp(TreeNode*& recipient);
 	void heapifyDown(TreeNode* recipient);
-	void printByLevel(TreeNode* root);
+	void printByLevelPriority(TreeNode* root);
 	void setTreeTail(TreeNode* root);
 	void swap(TreeNode* a, TreeNode* b);
+	void findTail(TreeNode* root);
 
 public:
 	PQTree();
