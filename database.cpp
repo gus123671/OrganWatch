@@ -5,11 +5,6 @@ Database::Database()
     this->test = vector<string>();
 }
 
-void Database::showData()
-{
-   // FIXME
-}
-
 //void Database::loadData(std::string file, std::vector<Donor>& donors)
 //{
 //    ifstream inFile(file);

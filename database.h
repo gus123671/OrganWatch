@@ -1,18 +1,18 @@
-#pragma once
-#include "PQArray.h"
-#include "Donor.h"
-#include "Recipient.h"
+#ifndef DATABASE_H
+#define DATABASE_H
 
+#include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
 
 struct Database
 {
-    Database();
-    vector<Donor> donors;
-    vector<Recipient> recipients;
-    // PQArray recipientsArr;
-     PQTree recipientsTree;
+    vector<string> test;
 
-    void showData();
-    void loadDonorData(std::string file, vector<Donor>& donors);
-    void loadRecipientData(std::string file, vector<Recipient>& recipients);
+
+
 };
+
+#endif

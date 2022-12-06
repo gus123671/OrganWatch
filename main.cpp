@@ -12,7 +12,7 @@
 #include <regex>
 #include <cmath>
 #include "Database.h"
-#include "Donor.h"
+// #include "Donor.h"
 
 using namespace std;
 
@@ -27,7 +27,7 @@ int main()
 	
 	Database* d = new Database();
 
-	Donor donor("1", 2, "3", "4");
+	// Donor donor("1", 2, "3", "4");
 
 	int input;
 
@@ -146,9 +146,9 @@ bool donate(Database& d)
 
 	} while (true);
 
-	d.donors.push_back("Southwest");
+	d.test.push_back("Southwest");
 
-	for (auto i : d.donors)
+	for (auto i : d.test)
 		cout << i << "fuck you" << endl;
 
 	cout << "Sucessfully entered " << name << " into The Organ Donation Registry to donate their " << organsMap[organ] << "!" << endl;
