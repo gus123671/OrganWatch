@@ -60,6 +60,7 @@ void Database::loadRecipientData(std::string file)
            getline(stream, ageStr, ',');
            getline(stream, organToReceive, ',');
            getline(stream, location, ',');
+           getline(stream, urgency, ',');
 
            recipientsArr.insert(Recipient(name, stoi(ageStr), organToReceive, location, stoi(urgency), 101 - stoi(ageStr) + stoi(urgency)));
 		   recipientsTree.insert(Recipient(name, stoi(ageStr), organToReceive, location, stoi(urgency), 101 - stoi(ageStr) + stoi(urgency)));
