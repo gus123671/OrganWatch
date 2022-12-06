@@ -10,8 +10,8 @@
 #include "Recipient.h"
 
 class PQArray {
-    vector<Recipient> queue;
 public:
+    vector<Recipient> queue;
     PQArray();
 
     int size = queue.size();

@@ -83,11 +83,6 @@ int main()
 
 bool donate(Database& d)
 {
-	/*
-		We can easily modify this section to accept input from a csv file. For development purposes, I have
-		it accepting input manually. 
-	*/
-
 	map<int, string> organsMap;
 	organsMap[1] = "Kidney";
 	organsMap[2] = "Liver";
@@ -344,7 +339,7 @@ void showData(Database& d)
 		if (choice == 1)
 		{
 			for (int i = 0; i < 10; i++)
-				cout << d.recipientsArr.extract().getName() << endl;
+				cout << d.recipientsArr.queue[i].getName() << endl;
 
 			break;
 		}
@@ -361,13 +356,19 @@ void showData(Database& d)
 			string name;
 			cin.ignore();
 			getline(cin, name);
+			bool found = false;
 		
-			for (int i = 0; i < d.recipientsArr.size; i++)
+			for (int i = 0; i < d.recipientsArr.queue.size(); i++)
 			{
-				if (d.recipientsArr.extract().getName() == name)
-					cout << i << endl;
+				if (d.recipientsArr.queue[i].getName() == name)
+				{
+					cout << d.recipientsArr.queue[i].getName() << " is at position " << i << " in the waitlist." << endl;
+					found = true;
+				}
 			}
-
+			
+			if (found == false)
+				cout << "Name not found." << endl;
 			break;
 		}
 		else if (choice == 4)
