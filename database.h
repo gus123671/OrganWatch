@@ -21,12 +21,13 @@ using namespace std;
 struct Database
 {
     Database();
+
     vector<Donor> donors;
     PQArray recipientsArr;
     PQTree recipientsTree;
 
-
-
+    void loadDonorData(std::string file, std::vector<Donor>& donors);
+    void loadRecipientData(std::string file, vector<Recipient>& recipients);
 };
 
 #endif

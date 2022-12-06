@@ -16,6 +16,8 @@ using namespace std;
 
 bool donate(Database& d);
 bool receive(Database& d);
+void showData(Database& d);
+void loadData(Database& d);
 bool validateName(string name);
 bool validateAge(string age);
 
@@ -25,15 +27,14 @@ int main()
 	
 	Database* d = new Database();
 
-	Donor donor("", 1, "", "");
-
 	int input;
 
 	do 
 	{
 		cout << "1) Donate an organ" << endl;
 		cout << "2) Receive an organ" << endl;
-		cout << "3) Show Data" << endl;
+		cout << "3) Show data" << endl;
+		cout << "4) Load data" << endl;
 		cout << "0) Exit" << endl;
 
 		cin >> input;
@@ -53,19 +54,25 @@ int main()
 
 		else if (input == 2)
 		{
-			cout << "FIXME" << endl;
+			receive(*d);
 			continue;
 		}
 
 		else if (input == 3)
 		{
-			cout << "FIXME" << endl;
+			showData(*d);
+			continue;
+		}
+
+		else if (input == 4)
+		{
+			loadData(*d);
 			continue;
 		}
 
 		else
 		{
-			cout << "Invalid input. Please enter an integer between 0 - 3." << endl;
+			cout << "Invalid input. Please enter an integer between 0 and 3." << endl;
 			continue;
 		}
 	} 
@@ -313,9 +320,27 @@ bool receive(Database& d)
 		Waiting on matching algo before proceeding
 	*/
 
+	d.recipientsArr.insert(Recipient(name, stoi(age), organsMap[organ], regionsMap[region], 0));
+	// d.recipientsTree.insertRecipient(Recipient(name, stoi(age), organsMap[organ], regionsMap[region], 0));
+
 	// FIXME: implement matching algorithm here
 	
 	return true;
+}
+
+void showData(Database& d)
+{
+	cout << "FIXME" << endl;
+	return;
+}
+
+void loadData(Database& d)
+{
+	d.loadDonorData("donors.csv", d.donors);
+	d.loadRecipientData("recipients.csv", )
+
+
+
 }
 
 bool validateName(string name)

@@ -6,3 +6,5 @@ OrganWatch DSA Final Project.vcxproj.filters
 OrganWatch DSA Final Project.vcxproj.user
 .vscode/
 main.exe
+database.cpp
+database.h
