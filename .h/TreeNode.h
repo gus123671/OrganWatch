@@ -1,14 +1,22 @@
 #include <iostream>
+#include "Donor.h"
+#include "Recipient.h"
 
-struct TreeNode {
-	int priority;
+/*
+Created By Ethan Willis
+gitHub: ethanbwillis
+email: ebwillis123@gmail.com
+*/
+
+ struct TreeNode {
+	double priority;
+	Recipient recipient;
 
 	TreeNode();
-	TreeNode(int val);
+	TreeNode(double val);
+	TreeNode(Recipient recipient);
 
 	TreeNode* left = nullptr;
 	TreeNode* right = nullptr;
 	TreeNode* parent = nullptr;
-	TreeNode* tail = nullptr;
-	TreeNode* _tempEnd = nullptr;
 };

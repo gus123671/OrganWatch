@@ -1,4 +1,5 @@
 #include "../.h/PQTree.h"
+#include <bitset>
 
 /*
 Created By Ethan Willis
@@ -19,6 +20,10 @@ double PQTree::retrieveHighestPriority() { // return the root of the max heap, w
 	return _root->priority;
 }
 
+Recipient PQTree::extract() {
+	return _root->recipient;
+} // return the recipient with the highest priority
+
 void PQTree::findLocation(TreeNode*& root, TreeNode*& recipient) { // converts the size of the heap to binary, then inserts the donor node at the correct location
 	if (this->_size == 0) {
 		this->_root = recipient;
@@ -32,12 +37,24 @@ void PQTree::findLocation(TreeNode*& root, TreeNode*& recipient) { // converts t
 		return;
 	}
 	TreeNode* fill = root;
-	this->_size++;
-	binarySize = intToBinary(this->_size);
+	binarySize = intToBinary(++this->_size);
 	binarySizeTail = intToBinary(this->_size-1);
+	string p;
+	int a = 0;
+	while (binarySize[a] == '0') {
+		a++;
+	}
+	for (int b = a; b < binarySizeTail.size(); b++) {
+		p += binarySizeTail[b];
+	}
+	binarySizeTail = p;
 	std::string s;
-	for (int i = 1; i < binarySize.size(); i++) {
-		s += binarySize[i];
+	int i = 0;
+	while (binarySize[i] == '0') {
+		i++;
+	}
+	for (int j = i + 1; j < binarySize.size(); j++) {
+		s += binarySize[j];
 	}
 	TreeNode* temp = this->_root;
 	TreeNode* location = nullptr;
@@ -46,32 +63,26 @@ void PQTree::findLocation(TreeNode*& root, TreeNode*& recipient) { // converts t
 		location = findLocationPass(s[i], fill, temp);
 	}
 	insertRecipient(s[s.length() - 1], location, recipient);
-	
 }
 
 void PQTree::insertRecipient(char lastDigit, TreeNode*& root, TreeNode*& recipient) {
+	// adds node to tree based on last digit of size in binary, then heapifies up
 	if (lastDigit == '1') {
 		if (root->right == nullptr) {
 			root->right = recipient;
-			this->_end = root->right;
+			this->_end = recipient;
 			recipient->parent = root;
 			heapifyUp(root->right);
 			count = 0;
-		}
-		else {
-			std::cout << recipient->priority << " is not being added" << std::endl;
 		}
 	}
 	else if (lastDigit == '0') {
 		if (root->left == nullptr) {
 			root->left = recipient;
-			this->_end = root->left;
+			this->_end = recipient;
 			recipient->parent = root;
 			heapifyUp(root->left);
 			count = 0;
-		}
-		else {
-			std::cout << recipient->priority << " is not being added" << std::endl;
 		}
 	}
 
@@ -79,7 +90,6 @@ void PQTree::insertRecipient(char lastDigit, TreeNode*& root, TreeNode*& recipie
 
 TreeNode* PQTree::findLocationPass(char leftOrRight, TreeNode*& root, TreeNode*& temp) {
 	//for each character of the binary string representing size, traverse left for 0, right for 1
-	TreeNode* x = nullptr;
 	if (root == nullptr) {
 		return temp;
 	}
@@ -100,7 +110,6 @@ TreeNode* PQTree::findLocationPass(char leftOrRight, TreeNode*& root, TreeNode*&
 	else {
 		return nullptr;
 	}
-
 }
 
 void PQTree::heapifyUp(TreeNode*& recipient) {
@@ -201,20 +210,16 @@ void PQTree::print() {
 }
 
 std::string PQTree::intToBinary(int x) {
-	int binaryRemainder, binaryProduct = 1, binaryRep = 0;
-	while (x != 0) {
-		binaryRemainder = x % 2;
-		binaryRep += (binaryRemainder * binaryProduct);
-		x = x / 2;
-		binaryProduct *= 10;
-	}
-	return std::to_string(binaryRep);
+	return std::bitset<64>(x).to_string();
 }
 
 void PQTree::swap(TreeNode* a, TreeNode* b) {
 	int val = a->priority;
+	Recipient r = a->recipient;
 	a->priority = b->priority;
+	a->recipient = b->recipient;
 	b->priority = val;
+	b->recipient = a->recipient;
 }
 
 void PQTree::findTail(TreeNode* root) {
@@ -234,6 +239,59 @@ void PQTree::findTail(TreeNode* root) {
 }
 
 void PQTree::insert(Recipient recipient) {
-	TreeNode* recipientNode = new TreeNode(recipient.getPriority());
+	TreeNode* recipientNode = new TreeNode(recipient);
 	this->findLocation(this->_root, recipientNode);
+}
+
+void PQTree::deleteTopPriority() {
+	this->deleteNode();
+}
+
+vector<Recipient> PQTree::createVector() {
+	vector<Recipient> recipients;
+	vector<TreeNode*> tree = levelOrderTraverse(this->_root);
+	for (int i = 0; i < tree.size(); i++) {
+		recipients.push_back(tree[i]->recipient);
+	}
+	return recipients;
+}
+
+vector<TreeNode*> PQTree::levelOrderTraverse(TreeNode* root) {
+	vector<TreeNode*> vector;
+	if (root == NULL)
+		return vector;
+
+	queue<TreeNode*> q;
+
+	q.push(root);
+
+	while (q.empty() == false) {
+		TreeNode* node = q.front();
+		vector.push_back(node);
+		q.pop();
+
+		if (node->left != NULL)
+			q.push(node->left);
+		if (node->right != NULL)
+			q.push(node->right);
+	}
+	return vector;
+}
+
+void PQTree::createInPlace(vector<TreeNode*> nodes) {
+	for (int i = 0; i < nodes.size(); i++) {
+		this->findLocation(this->_root, nodes[i]);
+	}
+}
+
+void PQTree::printTopTen() {
+	//prints the top ten recipients by priority in descending order
+	PQTree* temp = this;
+	vector<Recipient> topTen;
+	for (int i = 0; i < 10; i++) {
+		topTen.push_back(temp->extract());
+	}
+	for (int i = topTen.size() - 1; i >= 0; i--) {
+		cout << topTen[i].getName() << ": " << topTen[i].getPriority();
+	}
 }

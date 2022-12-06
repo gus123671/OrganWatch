@@ -39,7 +39,7 @@ void Database::loadDonorData(std::string file, std::vector<Donor>& donors)
    }
 }
 
-void Database::loadRecipientData(std::string file, vector<Recipient>& recipients)
+void Database::loadRecipientData(std::string file, PQArray& recipientsArr, PQTree& recipientsTree)
 {
    {
        ifstream inFile(file);
@@ -54,48 +54,14 @@ void Database::loadRecipientData(std::string file, vector<Recipient>& recipients
            string ageStr;
            string organToReceive;
            string location;
-           string urgency;
 
            getline(stream, name, ',');
            getline(stream, ageStr, ',');
            getline(stream, organToReceive, ',');
            getline(stream, location, ',');
-           getline(stream, urgency, ',');
 
-           recipients.push_back(Recipient(name, stoi(ageStr), organToReceive, location, stoi(urgency), 101 - stoi(ageStr) + stoi(urgency))); // have to go over twice and assign prio
+           recipientsArr.insert(Recipient(name, stoi(ageStr), organToReceive, location, 0));
+		   recipientsTree.(Recipient(name, stoi(ageStr), organToReceive, location, 0));
        }
    }
 }
-
-bool Database::isValid(Donor &donor, Recipient &recipient) {
-    bool age = true;
-    if ((donor.age >= 1 && donor.age <= 12) && (recipient.age >= 13 && recipient.age <= 100)) {
-        age = false;
-    } else if ((donor.age >= 13 && donor.age <= 100) && (recipient.age >= 1 && recipient.age <= 12)) {
-        age = false;
-    }
-
-    bool region;
-    if (donor.region == recipient.region) {
-        region = true;
-    } else {
-        region = false;
-    }
-
-    if (age && region) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-//this is used for loading demo data, otherwise we calculate priorities manually
-
-// void Database::calculatePriorities(vector<Recipient>& recipients) 
-// {
-//     // priority for recipients = 101 - age + urgency 
-//     // prio for donors = 101 - age
-
-//     for (auto i : recipients)
-//         i.setPriority(101 - i.getAge() + i.getUrgency());
-// }

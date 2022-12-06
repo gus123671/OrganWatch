@@ -4,7 +4,7 @@
 #include <queue>
 #include <vector>
 #include "TreeNode.h"
-#include "Recipient.h"
+using namespace std;
 
 /*
 Created By Ethan Willis
@@ -18,8 +18,8 @@ class PQTree {
 	int _size = 0;
 	int _tail = 0;
 	int count = 0;
-	string binarySize = "";
-	string binarySizeTail = "";
+	string binarySize;
+	string binarySizeTail;
 
 	double retrieveHighestPriority();
 	void findLocation(TreeNode*& root, TreeNode*& recipient);
@@ -32,12 +32,19 @@ class PQTree {
 	void setTreeTail(TreeNode* root);
 	void swap(TreeNode* a, TreeNode* b);
 	void findTail(TreeNode* root);
-
-	TreeNode* getRoot();
+	vector<TreeNode*> levelOrderTraverse(TreeNode* root);
+	
+	
 
 public:
 	PQTree();
 	void insert(Recipient recipient);
 	void print();
 	std::string intToBinary(int x);
+	void createInPlace(vector<TreeNode*> nodes);
+	Recipient extract();
+	void deleteTopPriority();
+	TreeNode* getRoot();
+	vector<Recipient> createVector();
+	void printTopTen();
 };
