@@ -13,18 +13,20 @@ void PQTree::setTreeTail(TreeNode* recipient) {
 	
 }
 
-void PQTree::findLocation(std::string heapSize, TreeNode*& root, TreeNode*& recipient) {
-	if (stoi(heapSize, 0, 2) == 0) {
+void PQTree::findLocation(TreeNode*& root, TreeNode*& recipient) {
+	if (this->_size == 0) {
 		this->_root = recipient;
 		this->_end = this->_root;
 		this->_size++;
 		return;
 	}
-	else if (stoi(heapSize, 0, 2) == 1) {
+	else if (this->_size == 1) {
 		insertRecipient('0', this->_root, recipient);
 		this->_size++;
 		return;
 	}
+	this->_size++;
+	std::string heapSize = intToBinary(this->_size);
 	std::string s;
 	for (int i = 1; i < heapSize.size(); i++) {
 		s += heapSize[i];
@@ -32,42 +34,44 @@ void PQTree::findLocation(std::string heapSize, TreeNode*& root, TreeNode*& reci
 	TreeNode* temp = this->_root;
 	TreeNode* location = nullptr;
 
-	std::cout << "Adding here " << s << std::endl;
 	for (int i = 0; i < s.size(); i++) {
-		location = findLocationPass(s[i], recipient, temp);
+		location = findLocationPass(s[i], root, temp);
 	}
+	
 	insertRecipient(s[s.length() - 1], location, recipient);
+	
 }
+	
 
 void PQTree::insertRecipient(char lastDigit, TreeNode*& root, TreeNode*& recipient) {
 	if (lastDigit == '1') {
-		//std::cout << this->_size << "last digit 1" << std::endl;
 		if (root->right == nullptr) {
 			root->right = recipient;
 			recipient->parent = root;
 			heapifyUp(root->right);
-			//set tail
 		}
 		else {
-			//std::cout << "doesnt work";
+			
 		}
 	}
 	else if (lastDigit == '0') {
-		//std::cout << this->_size << "last digit 0" << std::endl;
 		if (root->left == nullptr) {
 			root->left = recipient;
 			recipient->parent = root;
 			heapifyUp(root->left);
-			//set tail
+			
 		}
 		else {
-			//std::cout << "doesnt work";
+			
 		}
 	}
 
 }
 
 TreeNode* PQTree::findLocationPass(char leftOrRight, TreeNode*& root, TreeNode*& temp) {
+	if (root == nullptr) {
+		return temp;
+	}
 	if (leftOrRight == '1') {
 		if (root->right == nullptr) {
 			return temp;
@@ -81,28 +85,35 @@ TreeNode* PQTree::findLocationPass(char leftOrRight, TreeNode*& root, TreeNode*&
 		temp = root->left;
 	}
 	else {
-		std::cout << "invalid";
 		return nullptr;
 	}
 
 }
 
 void PQTree::heapifyUp(TreeNode*& recipient) {
+	if (recipient == nullptr) {
+		return;
+	}
 	if (recipient->parent == nullptr) {
 		return;
 	}
 	if (recipient->priority > recipient->parent->priority) {
-		swap(&recipient, &recipient->parent);
+		swap(recipient->parent, recipient);
 		heapifyUp(recipient->parent);
 	}
 }
 
 void PQTree::heapifyDown(TreeNode* recipient) {
-	if (recipient == nullptr || recipient->left == nullptr) {
+	if (recipient == nullptr) {
 		return;
 	}
-	
-
+	if (recipient->left == nullptr) {
+		return;
+	}
+	if (recipient->priority > recipient->parent->priority) {
+		swap(recipient->parent, recipient);
+		heapifyUp(recipient->parent);
+	}
 }
 
 void PQTree::deleteNode() {
@@ -145,19 +156,16 @@ void PQTree::printByLevel(TreeNode* root) {
 
 void PQTree::createInPlace(std::vector<TreeNode*>& recipientsList) {
 	for (int i = 0; i < recipientsList.size(); i++) {
-		std::cout << "inserting " << recipientsList[i]->priority << std::endl;
-		findLocation(intToBinary(this->_size), this->_root, recipientsList[i]);
+		findLocation(this->_root, recipientsList[i]);
 	}
 }
 
 void PQTree::print() {
 	std::cout << "Print by level: " << std::endl;
 	printByLevel(this->_root);
-	//std::cout << "Inorder print: " << std::endl;
-	//inorderPrint(this->_root);
 	std::cout << "Highest priority: " << std::endl;
 	std::cout << this->retrieveHighestPriority() << std::endl;
-	std::cout << "Number of recipients: " << intToBinary(this->_size) << std::endl;
+	std::cout << "Number of recipients: " << this->_size << std::endl;
 }
 
 void PQTree::inorderPrint(TreeNode* root) {
@@ -179,8 +187,15 @@ std::string PQTree::intToBinary(int x) {
 	return std::to_string(binary);
 }
 
-void PQTree::swap(TreeNode** a, TreeNode** b) {
-	TreeNode* temp = *a;
-	*a = *b;
-	*b = temp;
+void PQTree::swap(TreeNode* a, TreeNode* b) {
+	int val = a->priority;
+	a->priority = b->priority;
+	b->priority = val;
+}
+
+int PQTree::smallerSwap(TreeNode* a, TreeNode* b) {
+	int val = a->priority;
+	a->priority = b->priority;
+	b->priority = val;
+	return b->priority;
 }
