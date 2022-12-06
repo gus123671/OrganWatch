@@ -8,6 +8,8 @@
 
 using namespace std;
 
+Donor::Donor() {}
+
 Donor::Donor(string name, int age, string organ, string region) {
     this->name = name;
     this->age = age;

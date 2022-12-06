@@ -1,13 +1,15 @@
+/*
+	Author: Augustus Rodriguez
+	Email: augustusrodriguez007@gmail.com
+	Github: gus123671
+	Created: 11/24/22
+*/
+
 #include "Database.h"
 
 Database::Database() 
 {
-    this->test = vector<string>();
-}
-
-void Database::showData()
-{
-   // FIXME
+    this->donors = vector<Donor>();
 }
 
 //void Database::loadData(std::string file, std::vector<Donor>& donors)
@@ -35,7 +37,7 @@ void Database::showData()
 //    }
 //}
 //
-//void DataBas::loadRecipientData(std::string file, vector<Recipient>& recipients)
+//void Database::loadRecipientData(std::string file, vector<Recipient>& recipients)
 //{
 //    {
 //        ifstream inFile(file);

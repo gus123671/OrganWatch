@@ -9,10 +9,8 @@
 #include <string>
 #include <sstream>
 #include <map>
-#include <regex>
 #include <cmath>
 #include "Database.h"
-// #include "Donor.h"
 
 using namespace std;
 
@@ -27,7 +25,7 @@ int main()
 	
 	Database* d = new Database();
 
-	// Donor donor("1", 2, "3", "4");
+	Donor donor("", 1, "", "");
 
 	int input;
 
@@ -43,6 +41,7 @@ int main()
 		if (input == 0)
 		{
 			cout << "Thank you for using OrganWatch. Goodbye." << endl;
+			delete d;
 			return 0;
 		}
 
@@ -90,6 +89,12 @@ bool donate(Database& d)
 	organsMap[4] = "Heart";
 
 	map<int, string> regionsMap;
+	regionsMap[1] = "Southeast";
+	regionsMap[2] = "Northeast";
+	regionsMap[3] = "Southwest";
+	regionsMap[4] = "Northwest";
+	regionsMap[5] = "Midwest";
+
 
 	string name = "";
 
@@ -146,10 +151,35 @@ bool donate(Database& d)
 
 	} while (true);
 
-	d.test.push_back("Southwest");
+	int region;
 
-	for (auto i : d.test)
-		cout << i << "fuck you" << endl;
+	do
+	{
+		cout << "Please select your region:" << endl;
+		cout << "1) Southeast" << endl;
+		cout << "2) Northeast" << endl;
+		cout << "3) Southwest" << endl;
+		cout << "4) Northwest" << endl;
+		cout << "5) Midwest" << endl;
+		cout << "0) Cancel and return to the main menu" << endl;
+
+		cin.ignore();
+		cin >> region;
+
+		if (region == 0)
+			return false;
+		else if (region != 1 && region != 2 && region != 3 && region != 4 && region != 5)
+		{
+			cout << "Invalid input. Enter an integer between 0 and 5." << endl;
+			continue;
+		}
+		else
+			break;
+
+	} while (true);
+	
+
+	d.donors.push_back(Donor(name, stoi(age), organsMap[organ], regionsMap[region]));
 
 	cout << "Sucessfully entered " << name << " into The Organ Donation Registry to donate their " << organsMap[organ] << "!" << endl;
 	cout << endl;
@@ -166,6 +196,13 @@ bool receive(Database& d)
 	organsMap[2] = "Liver";
 	organsMap[3] = "Lung";
 	organsMap[4] = "Heart";
+
+	map<int, string> regionsMap;
+	regionsMap[1] = "Southeast";
+	regionsMap[2] = "Northeast";
+	regionsMap[3] = "Southwest";
+	regionsMap[4] = "Northwest";
+	regionsMap[5] = "Midwest";
 
 	string name = "";
 
@@ -242,6 +279,33 @@ bool receive(Database& d)
 			break;
 	}
 	while(true);
+
+	int region;
+
+	do
+	{
+		cout << "Please select your region:" << endl;
+		cout << "1) Southeast" << endl;
+		cout << "2) Northeast" << endl;
+		cout << "3) Southwest" << endl;
+		cout << "4) Northwest" << endl;
+		cout << "5) Midwest" << endl;
+		cout << "0) Cancel and return to the main menu" << endl;
+
+		cin.ignore();
+		cin >> region;
+
+		if (region == 0)
+			return false;
+		else if (region != 1 && region != 2 && region != 3 && region != 4 && region != 5)
+		{
+			cout << "Invalid input. Enter an integer between 0 and 5." << endl;
+			continue;
+		}
+		else
+			break;
+
+	} while (true);
 
 	/*
 		Here, we'd instantiate a Recipient object and place it into our priority queues. 
