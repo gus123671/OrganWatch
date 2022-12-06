@@ -10,6 +10,7 @@ class PQTree {
 	TreeNode* _end;
 	int _size = 0;
 	int _tail = 0;
+	int count = 0;
 
 	int retrieveHighestPriority();
 	void findLocation(TreeNode*& root, TreeNode*& recipient);
@@ -20,9 +21,7 @@ class PQTree {
 	void heapifyDown(TreeNode* recipient);
 	void printByLevel(TreeNode* root);
 	void setTreeTail(TreeNode* root);
-	void inorderPrint(TreeNode* root);
 	void swap(TreeNode* a, TreeNode* b);
-	int smallerSwap(TreeNode* a, TreeNode* b);
 
 public:
 	PQTree();
