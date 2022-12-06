@@ -3,6 +3,10 @@
 //
 
 #include "Donor.h"
+#include <string>
+#include <iostream>
+
+using namespace std;
 
 Donor::Donor(string name, int age, string organ, string region) {
     this->name = name;

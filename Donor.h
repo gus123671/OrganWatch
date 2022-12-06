@@ -6,6 +6,7 @@
 #define PQARRAY_DONOR_H
 
 #include <iostream>
+#include <string>
 using namespace std;
 
 class Donor {

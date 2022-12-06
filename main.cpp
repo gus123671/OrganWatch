@@ -11,24 +11,23 @@
 #include <map>
 #include <regex>
 #include <cmath>
-#include "Recipient.h"
-#include "PQArray.h"
 #include "Database.h"
 #include "Donor.h"
 
 using namespace std;
 
-bool donate(Database& data);
-bool receive(Database& data);
-// bool showData();
-// bool loadData();
+bool donate(Database& d);
+bool receive(Database& d);
 bool validateName(string name);
 bool validateAge(string age);
 
 int main()
 {
 	cout << "Welcome to OrganWatch: the Organ Donation Registry!" << endl;
-	Database data;
+	
+	Database* d = new Database();
+
+	Donor donor("1", 2, "3", "4");
 
 	int input;
 
@@ -49,7 +48,7 @@ int main()
 
 		else if (input == 1)
 		{
-			donate(data);
+			donate(*d);
 			continue;
 		}
 
@@ -77,7 +76,7 @@ int main()
 }
 
 
-bool donate(Database& data)
+bool donate(Database& d)
 {
 	/*
 		We can easily modify this section to accept input from a csv file. For development purposes, I have
@@ -89,6 +88,8 @@ bool donate(Database& data)
 	organsMap[2] = "Liver";
 	organsMap[3] = "Lung";
 	organsMap[4] = "Heart";
+
+	map<int, string> regionsMap;
 
 	string name = "";
 
@@ -145,6 +146,11 @@ bool donate(Database& data)
 
 	} while (true);
 
+	d.donors.push_back("Southwest");
+
+	for (auto i : d.donors)
+		cout << i << "fuck you" << endl;
+
 	cout << "Sucessfully entered " << name << " into The Organ Donation Registry to donate their " << organsMap[organ] << "!" << endl;
 	cout << endl;
 	return true;
@@ -153,7 +159,7 @@ bool donate(Database& data)
 
 }
 
-bool receive(Database& data)
+bool receive(Database& d)
 {
 	map<int, string> organsMap;
 	organsMap[1] = "Kidney";
@@ -245,7 +251,7 @@ bool receive(Database& data)
 
 	// FIXME: implement matching algorithm here
 	
-
+	return true;
 }
 
 bool validateName(string name)
