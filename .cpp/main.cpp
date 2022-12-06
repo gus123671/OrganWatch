@@ -18,6 +18,7 @@ bool donate(Database& d);
 bool receive(Database& d);
 void showData(Database& d);
 void loadDemoData(Database& d);
+bool match(Database& d);
 bool validateName(string name);
 bool validateAge(string age);
 
@@ -34,6 +35,7 @@ int main()
 		cout << "2) Receive an organ" << endl;
 		cout << "3) Show data" << endl;
 		cout << "4) Load demo data" << endl;
+		cout << "5) Find a match" << endl;
 		cout << "0) Exit" << endl;
 
 		cin >> input;
@@ -66,6 +68,12 @@ int main()
 		else if (input == 4)
 		{
 			loadDemoData(*d);
+			continue;
+		}
+
+		else if (input == 5)
+		{
+			match(*d);
 			continue;
 		}
 
@@ -188,34 +196,7 @@ bool donate(Database& d)
 	cout << "Sucessfully entered " << name << " into The Organ Donation Registry to donate their " << organsMap[organ] << "!" << endl;
 	cout << endl;
 
-	// matching algo: match donor in d.donors to recipient in d.recipientsArr an d.recipientsTree
-
-	Recipient r;
-	Donor donor;
-
-	int pos;
-	for (pos = 0; pos < d.donors.size(); pos++)
-	{
-		donor = d.donors[pos];
-	 	r = d.recipientsArr.extractValid(d.donors[pos]);
-	}
-
-	if (r.getAge() != -1)
-	{
-		cout << donor.getName() << "'s " << donor.getOrgan() << " has been matched to " << r.getName() << "!" << endl;
-		cout << "Organ Recipient:" << endl;
-		cout << "Name: " << r.getName() << endl;
-		cout << "Age: " << r.getAge() << endl;
-		cout << "Needed organ: " << r.getOrgan() << endl;
-		cout << "Position on waitlist: " << pos << endl;
-		cout << "Transplant surgery will now commence. " << donor.getName() << " and " << r.getName() << " have been removed from the registry." << endl;
-		return true;
-	}
-	else
-	{
-		cout << "There is no available recipient for " << donor.getName() << "'s " << donor.getOrgan() << ". Transplant surgery will wait until one is found." << endl;
-		return false;
-	}
+	return true;
 }
 
 bool receive(Database& d)
@@ -336,12 +317,13 @@ bool receive(Database& d)
 
 	} while (true);
 
+	Recipient r(name, stoi(age), organsMap[organ], regionsMap[region], urgency, 101 - stoi(age) + urgency);
+
 	d.recipientsArr.insert(Recipient(name, stoi(age), organsMap[organ], regionsMap[region], urgency, 101 - stoi(age) + urgency));
-	// FIXME: d.recipientsTree.insert(Recipient(name, stoi(age), organsMap[organ], regionsMap[region], urgency, 101 - stoi(age) + urgency));
+	d.recipientsTree.insert(Recipient(name, stoi(age), organsMap[organ], regionsMap[region], urgency, 101 - stoi(age) + urgency));
 
-	
-
-	
+	cout << "Successfuly entered " << r.getName() << " into OrganWatch to donate their " << r.getOrgan() <<"!" << endl;
+	cout << endl;
 	return true;
 }
 
@@ -409,16 +391,41 @@ void showData(Database& d)
 void loadDemoData(Database& d)
 {
 	d.loadDonorData("../data/donors.csv", d.donors);
-	d.loadRecipientData("../data/recipients.csv", d.recipients);
+	d.loadRecipientData("../data/recipients.csv");
+	cout << endl;
+}
 
-	for (auto i : d.recipients)
+bool match(Database& d)
+{
+	// if (d.recipientsArr.size == 0 && d.recipientsTree.)
+
+	Recipient r;
+	Donor donor;
+
+	int pos;
+	for (pos = 0; pos < d.donors.size(); pos++)
 	{
-		d.recipientsArr.insert(i);
-		// FIXME: d.recipientsTree.insert(i);
+		donor = d.donors[pos];
+	 	r = d.recipientsArr.extractValid(d.donors[pos]);
 	}
 
-	cout << d.recipientsArr.queue[0].getName() << endl;
-	// cout << d.recipientsTree.
+	if (r.getAge() != -1)
+	{
+		cout << donor.getName() << "'s " << donor.getOrgan() << " has been matched to " << r.getName() << "!" << endl;
+		cout << "Organ Recipient:" << endl;
+		cout << "Name: " << r.getName() << endl;
+		cout << "Age: " << r.getAge() << endl;
+		cout << "Needed organ: " << r.getOrgan() << endl;
+		cout << "Position on waitlist: " << pos << endl;
+		cout << "Transplant surgery will now commence. " << donor.getName() << " and " << r.getName() << " have been removed from the registry." << endl;
+		return true;
+	}
+	else
+	{
+		cout << "There is no available recipient for " << donor.getName() << "'s " << donor.getOrgan() << ". Transplant surgery will wait until one is found." << endl;
+		return false;
+	}
+	cout << endl;
 }
 
 bool validateName(string name)

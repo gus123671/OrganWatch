@@ -23,12 +23,11 @@ struct Database
     Database();
 
     vector<Donor> donors;
-    vector<Recipient> recipients;
     PQArray recipientsArr;
     PQTree recipientsTree;
 
     void loadDonorData(std::string file, std::vector<Donor>& donors);
-    void loadRecipientData(std::string file, vector<Recipient>& recipients);
+    void loadRecipientData(std::string file);
     // void calculatePriorities(vector<Recipient>& recipients);
     bool isValid(Donor &donor, Recipient &recipient);
 };
