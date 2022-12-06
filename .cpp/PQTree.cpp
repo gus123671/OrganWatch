@@ -1,19 +1,15 @@
-#include "../.h/PQTree.h"
+#include "PQTree.h"
 
 PQTree::PQTree() {
 	this->_root = nullptr;
 	this->_end = nullptr;
 }
 
-int PQTree::retrieveHighestPriority() {
+double PQTree::retrieveHighestPriority() { // return the root of the max heap, which will be the highest priority
 	return _root->priority;
 }
 
-void PQTree::setTreeTail(TreeNode* recipient) {
-	
-}
-
-void PQTree::findLocation(TreeNode*& root, TreeNode*& recipient) {
+void PQTree::findLocation(TreeNode*& root, TreeNode*& recipient) { // converts the size of the heap to binary, then inserts the donor node at the correct location
 	if (this->_size == 0) {
 		this->_root = recipient;
 		this->_end = this->_root;
@@ -27,10 +23,11 @@ void PQTree::findLocation(TreeNode*& root, TreeNode*& recipient) {
 	}
 	TreeNode* fill = root;
 	this->_size++;
-	std::string heapSize = intToBinary(this->_size);
+	binarySize = intToBinary(this->_size);
+	binarySizeTail = intToBinary(this->_size-1);
 	std::string s;
-	for (int i = 1; i < heapSize.size(); i++) {
-		s += heapSize[i];
+	for (int i = 1; i < binarySize.size(); i++) {
+		s += binarySize[i];
 	}
 	TreeNode* temp = this->_root;
 	TreeNode* location = nullptr;
@@ -41,13 +38,12 @@ void PQTree::findLocation(TreeNode*& root, TreeNode*& recipient) {
 	insertRecipient(s[s.length() - 1], location, recipient);
 	
 }
-	
 
 void PQTree::insertRecipient(char lastDigit, TreeNode*& root, TreeNode*& recipient) {
 	if (lastDigit == '1') {
 		if (root->right == nullptr) {
 			root->right = recipient;
-			_end = root->right;
+			this->_end = root->right;
 			recipient->parent = root;
 			heapifyUp(root->right);
 			count = 0;
@@ -59,7 +55,7 @@ void PQTree::insertRecipient(char lastDigit, TreeNode*& root, TreeNode*& recipie
 	else if (lastDigit == '0') {
 		if (root->left == nullptr) {
 			root->left = recipient;
-			_end = root->left;
+			this->_end = root->left;
 			recipient->parent = root;
 			heapifyUp(root->left);
 			count = 0;
@@ -72,6 +68,7 @@ void PQTree::insertRecipient(char lastDigit, TreeNode*& root, TreeNode*& recipie
 }
 
 TreeNode* PQTree::findLocationPass(char leftOrRight, TreeNode*& root, TreeNode*& temp) {
+	//for each character of the binary string representing size, traverse left for 0, right for 1
 	TreeNode* x = nullptr;
 	if (root == nullptr) {
 		return temp;
@@ -97,8 +94,9 @@ TreeNode* PQTree::findLocationPass(char leftOrRight, TreeNode*& root, TreeNode*&
 }
 
 void PQTree::heapifyUp(TreeNode*& recipient) {
+	//while the priority is greater than its parent, swap
 	if (count == 1) {
-		_end = recipient;
+		this->_end = recipient;
 	}
 	if (recipient == nullptr) {
 		return;
@@ -114,6 +112,7 @@ void PQTree::heapifyUp(TreeNode*& recipient) {
 }
 
 void PQTree::heapifyDown(TreeNode* recipient) {
+	//while the root/parent is less than its child, swap them
 	if (recipient == nullptr) {
 		return;
 	}
@@ -140,14 +139,24 @@ void PQTree::deleteNode() {
 	}
 	else {
 		swap(this->_root, this->_end);
+		if (this->_end->parent->left == this->_end) {
+			this->_end->parent->left = nullptr;
+		}
+		else if (this->_end->parent->right == this->_end) {
+			this->_end->parent->right = nullptr;
+		}
+		//delete the end and set it to a new value
 		delete this->_end;
 		this->_end = nullptr;
-		this->_size--;
+		findTail(this->_root);
+		count = 0;
 		heapifyDown(this->_root);
+		this->_size--;
 	}
 }
 
-void PQTree::printByLevel(TreeNode* root) {
+void PQTree::printByLevelPriority(TreeNode* root) {
+	//inorder traversal using bfs to print each node by level in terms of priority
 	if (root == nullptr) {
 		return;
 	}
@@ -181,15 +190,10 @@ void PQTree::createInPlace(std::vector<TreeNode*>& recipientsList) {
 
 void PQTree::print() {
 	std::cout << "Print by level: " << std::endl;
-	printByLevel(this->_root);
+	printByLevelPriority(this->_root);
 	std::cout << "Highest priority: " << std::endl;
 	std::cout << this->retrieveHighestPriority() << std::endl;
-	std::cout << "TAIL: " << this->_end->priority << std::endl;
 	std::cout << "Number of recipients: " << this->_size << std::endl;
-	std::cout << "Tail " << this->_end->priority << std::endl;
-	std::cout << "Extracting Max" << std::endl;
-	this->deleteNode();
-	printByLevel(this->_root);
 }
 
 std::string PQTree::intToBinary(int x) {
@@ -207,4 +211,20 @@ void PQTree::swap(TreeNode* a, TreeNode* b) {
 	int val = a->priority;
 	a->priority = b->priority;
 	b->priority = val;
+}
+
+void PQTree::findTail(TreeNode* root) {
+	if (root == nullptr || count + 1 > binarySizeTail.size() + 1) {
+		return;
+	}
+	if (binarySizeTail[count + 1] == '1') {
+		this->_end = root->right;
+		count++;
+		findTail(root->right);
+	}
+	else if (binarySizeTail[count + 1] == '0') {
+		this->_end = root->left;
+		count++;
+		findTail(root->left);
+	}
 }
