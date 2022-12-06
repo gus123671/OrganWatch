@@ -2,7 +2,7 @@
 // Created by Nicolas Macias on 11/21/22.
 //
 
-#include "Recipient.h"
+#include "../.h/Recipient.h"
 
 Recipient::Recipient(string name, int age, string organ, string region, double priority) {
     this->name = name;

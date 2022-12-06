@@ -10,7 +10,7 @@
 #include <sstream>
 #include <map>
 #include <cmath>
-#include "Database.h"
+#include "../.h/Database.h"
 
 using namespace std;
 
@@ -337,7 +337,7 @@ void showData(Database& d)
 void loadData(Database& d)
 {
 	d.loadDonorData("donors.csv", d.donors);
-	d.loadRecipientData("recipients.csv", )
+	// d.loadRecipientData("recipients.csv", )
 
 
 

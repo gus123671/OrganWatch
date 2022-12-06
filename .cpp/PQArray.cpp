@@ -2,7 +2,7 @@
 // Created by Nicolas Macias on 11/21/22.
 //
 
-#include "PQArray.h"
+#include "../.h/PQArray.h"
 
 PQArray::PQArray() {}
 

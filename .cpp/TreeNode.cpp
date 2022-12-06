@@ -1,4 +1,4 @@
-#include "TreeNode.h"
+#include "../.h/TreeNode.h"
 
 TreeNode::TreeNode() {
 	this->priority = 0;

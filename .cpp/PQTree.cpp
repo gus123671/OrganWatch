@@ -1,4 +1,4 @@
-#include "PQTree.h"
+#include "../.h/PQTree.h"
 
 PQTree::PQTree() {
 	this->_root = nullptr;

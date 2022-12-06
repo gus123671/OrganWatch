@@ -2,7 +2,7 @@
 // Created by Nicolas Macias on 11/21/22.
 //
 
-#include "Donor.h"
+#include "../.h/Donor.h"
 #include <string>
 #include <iostream>
 
