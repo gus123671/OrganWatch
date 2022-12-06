@@ -9,7 +9,7 @@ using namespace std;
 
 struct Database
 {
-    vector<string> test;
+    vector<string> donors;
 
 
 
