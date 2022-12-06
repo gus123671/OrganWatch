@@ -39,7 +39,7 @@ void Database::loadDonorData(std::string file, std::vector<Donor>& donors)
    }
 }
 
-void Database::loadRecipientData(std::string file, PQArray& recipientsArr, PQTree& recipientsTree)
+void Database::loadRecipientData(std::string file, vector<Recipient>& recipients)
 {
    {
        ifstream inFile(file);
@@ -60,8 +60,7 @@ void Database::loadRecipientData(std::string file, PQArray& recipientsArr, PQTre
            getline(stream, organToReceive, ',');
            getline(stream, location, ',');
 
-           recipientsArr.insert(Recipient(name, stoi(ageStr), organToReceive, location, 0));
-           recipientsTree.insert(Recipient(name, stoi(ageStr), organToReceive, location, 0));
+           recipients.push_back(Recipient(name, stoi(ageStr), organToReceive, location, 0)); // have to go over twice and assign prio
        }
    }
 }
@@ -86,4 +85,14 @@ bool Database::isValid(Donor &donor, Recipient &recipient) {
     } else {
         return false;
     }
+}
+
+void Database::calculatePriorities(vector<Recipient>& recipients, vector<Donor>& donors)
+{
+    // priority for recipients = 101 - age + urgency 
+    // prio for donors = 101 - age
+
+    
+
+
 }

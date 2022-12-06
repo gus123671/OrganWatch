@@ -386,7 +386,11 @@ void showData(Database& d)
 void loadData(Database& d)
 {
 	d.loadDonorData("../data/donors.csv", d.donors);
-	d.loadRecipientData("../data/recipients.csv", d.recipientsArr, d.recipientsTree);
+	d.loadRecipientData("../data/recipients.csv", d.recipients);
+
+	// assign prio to recipients
+
+
 }
 
 bool validateName(string name)
