@@ -1,8 +1,18 @@
 #include "../.h/PQTree.h"
 
+/*
+Created By Ethan Willis
+gitHub: ethanbwillis
+email: ebwillis123@gmail.com
+*/
+
 PQTree::PQTree() {
 	this->_root = nullptr;
 	this->_end = nullptr;
+}
+
+TreeNode* PQTree::getRoot() {
+	return this->_root;
 }
 
 double PQTree::retrieveHighestPriority() { // return the root of the max heap, which will be the highest priority
@@ -182,12 +192,6 @@ void PQTree::printByLevelPriority(TreeNode* root) {
 	}
 }
 
-void PQTree::createInPlace(std::vector<TreeNode*>& recipientsList) {
-	for (int i = 0; i < recipientsList.size(); i++) {
-		findLocation(this->_root, recipientsList[i]);
-	}
-}
-
 void PQTree::print() {
 	std::cout << "Print by level: " << std::endl;
 	printByLevelPriority(this->_root);
@@ -197,14 +201,14 @@ void PQTree::print() {
 }
 
 std::string PQTree::intToBinary(int x) {
-	int remainder, product = 1, binary = 0;
+	int binaryRemainder, binaryProduct = 1, binaryRep = 0;
 	while (x != 0) {
-		remainder = x % 2;
-		binary = binary + (remainder * product);
+		binaryRemainder = x % 2;
+		binaryRep += (binaryRemainder * binaryProduct);
 		x = x / 2;
-		product *= 10;
+		binaryProduct *= 10;
 	}
-	return std::to_string(binary);
+	return std::to_string(binaryRep);
 }
 
 void PQTree::swap(TreeNode* a, TreeNode* b) {
@@ -227,4 +231,9 @@ void PQTree::findTail(TreeNode* root) {
 		count++;
 		findTail(root->left);
 	}
+}
+
+void PQTree::insert(Recipient recipient) {
+	TreeNode* recipientNode = new TreeNode(recipient);
+	this->findLocation(this->_root, recipientNode);
 }
