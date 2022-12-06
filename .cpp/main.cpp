@@ -22,15 +22,14 @@ bool validateName(string name);
 bool validateAge(string age);
 
 int main()
-{
-	cout << "Welcome to OrganWatch: the Organ Donation Registry!" << endl;
-	
+{	
 	Database* d = new Database();
 
 	int input;
 
 	do 
 	{
+		cout << "Welcome to OrganWatch: the Organ Donation Registry!" << endl;
 		cout << "1) Donate an organ" << endl;
 		cout << "2) Receive an organ" << endl;
 		cout << "3) Show data" << endl;
@@ -330,17 +329,62 @@ bool receive(Database& d)
 
 void showData(Database& d)
 {
-	cout << "FIXME" << endl;
+	int choice;
+
+	do
+	{	
+		cout << "1) List of the top ten people on the waitlist for an organ" << endl;
+		cout << "2) List of ten donor patients available for an organ" << endl;
+		cout << "3) Print an organ recipient's position on the waitlist" << endl;
+		cout << "4) Exit and return to the main menu" << endl;
+
+		cin.ignore();
+		cin >> choice;
+
+		if (choice == 1)
+		{
+			for (int i = 0; i < 10; i++)
+				cout << d.recipientsArr.extract().getName() << endl;
+
+			break;
+		}
+		else if (choice == 2)
+		{
+			for (int i = 0; i < 10; i++)
+				cout << d.donors[i].getName() << endl;
+
+			break;
+		}
+		else if (choice == 3)
+		{
+			cout << "Enter the name of the organ recipient: " << endl;
+			string name;
+			cin.ignore();
+			getline(cin, name);
+		
+			for (int i = 0; i < d.recipientsArr.size; i++)
+			{
+				if (d.recipientsArr.extract().getName() == name)
+					cout << i << endl;
+			}
+
+			break;
+		}
+		else if (choice == 4)
+			break;
+		else
+		{
+			cout << "Enter an integer between 1 and 4" << endl;
+			continue;
+		}
+	} while (true);
+	
 	return;
 }
 
 void loadData(Database& d)
 {
-	d.loadDonorData("donors.csv", d.donors);
-	// d.loadRecipientData("recipients.csv", )
-
-
-
+	d.loadDonorData("../data/donors.csv", d.donors);
 }
 
 bool validateName(string name)

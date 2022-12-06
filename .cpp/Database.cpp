@@ -65,3 +65,25 @@ void Database::loadRecipientData(std::string file, PQArray& recipientsArr, PQTre
        }
    }
 }
+
+bool Database::isValid(Donor &donor, Recipient &recipient) {
+    bool age = true;
+    if ((donor.age >= 1 && donor.age <= 12) && (recipient.age >= 13 && recipient.age <= 100)) {
+        age = false;
+    } else if ((donor.age >= 13 && donor.age <= 100) && (recipient.age >= 1 && recipient.age <= 12)) {
+        age = false;
+    }
+
+    bool region;
+    if (donor.region == recipient.region) {
+        region = true;
+    } else {
+        region = false;
+    }
+
+    if (age && region) {
+        return true;
+    } else {
+        return false;
+    }
+}

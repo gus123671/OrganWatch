@@ -28,6 +28,7 @@ struct Database
 
     void loadDonorData(std::string file, std::vector<Donor>& donors);
     void loadRecipientData(std::string file, PQArray& recipientsArr, PQTree& recipientsTree);
+    bool isValid(Donor &donor, Recipient &recipient);
 };
 
 #endif

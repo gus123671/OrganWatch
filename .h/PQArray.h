@@ -9,17 +9,17 @@
 #include "Donor.h"
 #include "Recipient.h"
 
-
-
 class PQArray {
     vector<Recipient> queue;
 public:
     PQArray();
+
+    int size = queue.size();
     void insert(Recipient recipient);
     Recipient extract();
     void heapifyDown(int pos);
     Recipient extractValid(Donor donor);
-    bool isValid(Donor& donor, Recipient& recipient);
+    bool isValid(Donor &donor, Recipient &recipient);
 };
 
 
