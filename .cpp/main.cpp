@@ -339,7 +339,7 @@ bool receive(Database& d)
 	d.recipientsArr.insert(Recipient(name, stoi(age), organsMap[organ], regionsMap[region], urgency, 101 - stoi(age) + urgency));
 	// FIXME: d.recipientsTree.insert(Recipient(name, stoi(age), organsMap[organ], regionsMap[region], urgency, 101 - stoi(age) + urgency));
 
-	
+
 
 	
 	return true;
@@ -409,16 +409,9 @@ void showData(Database& d)
 void loadDemoData(Database& d)
 {
 	d.loadDonorData("../data/donors.csv", d.donors);
-	d.loadRecipientData("../data/recipients.csv", d.recipients);
-
-	for (auto i : d.recipients)
-	{
-		d.recipientsArr.insert(i);
-		// FIXME: d.recipientsTree.insert(i);
-	}
+	d.loadRecipientData("../data/recipients.csv");
 
 	cout << d.recipientsArr.queue[0].getName() << endl;
-	// cout << d.recipientsTree.
 }
 
 bool validateName(string name)
