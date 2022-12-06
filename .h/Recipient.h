@@ -15,7 +15,7 @@ public:
     string organ;
     string region;
     int urgency;
-    double priority;
+    int priority;
 
     Recipient();
     Recipient(string name, int age, string organ, string region, int urgency);
@@ -24,7 +24,8 @@ public:
     string getOrgan();
     string getRegion();
     int getUrgency();
-    double getPriority();
+    int getPriority();
+    void setPriority(int prio);
     void print();
 };
 

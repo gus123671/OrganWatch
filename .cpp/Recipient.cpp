@@ -19,6 +19,7 @@ Recipient::Recipient(string name, int age, string organ, string region, int urge
     this->organ = organ;
     this->region = region;
     this->urgency = urgency;
+    this->priority = 0;
 }
 
 string Recipient::getName() {
@@ -37,8 +38,13 @@ string Recipient::getRegion() {
     return this->region;
 }
 
-double Recipient::getPriority() {
+int Recipient::getPriority() {
     return this->priority;
+}
+
+void Recipient::setPriority(int prio)
+{
+    this->priority = prio;
 }
 
 int Recipient::getUrgency()

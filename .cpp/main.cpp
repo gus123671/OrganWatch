@@ -182,6 +182,9 @@ bool donate(Database& d)
 
 	d.donors.push_back(Donor(name, stoi(age), organsMap[organ], regionsMap[region]));
 
+	for (auto i : d.donors)
+        i.priority = 101 - i.getAge();
+
 	cout << "Sucessfully entered " << name << " into The Organ Donation Registry to donate their " << organsMap[organ] << "!" << endl;
 	cout << endl;
 
@@ -339,6 +342,11 @@ bool receive(Database& d)
 		Waiting on matching algo before proceeding
 	*/
 
+	d.recipients.push_back(Recipient(name, stoi(age), organsMap[organ], regionsMap[region], 0));
+
+	for (auto i : d.recipients)
+        i.priority = 101 - i.getAge() + i.getUrgency();
+
 	d.recipientsArr.insert(Recipient(name, stoi(age), organsMap[organ], regionsMap[region], 0));
 	// d.recipientsTree.insertRecipient(Recipient(name, stoi(age), organsMap[organ], regionsMap[region], 0));
 
@@ -416,12 +424,15 @@ void loadDemoData(Database& d)
 	// assign prio to recipients
 
 	d.calculatePriorities(d.recipients, d.donors);
+	
 
 	for (auto i : d.recipients)
-		{
-			d.recipientsArr.insert(i);
-			// d.recipientsTree.insert(i);
-		}
+	{
+		d.recipientsArr.insert(i);
+		// d.recipientsTree.insert(i);
+	}
+
+	cout << d.recipientsArr.queue[0].getName() << endl;
 }
 
 bool validateName(string name)

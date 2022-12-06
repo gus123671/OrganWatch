@@ -89,14 +89,13 @@ bool Database::isValid(Donor &donor, Recipient &recipient) {
     }
 }
 
-void Database::calculatePriorities(vector<Recipient>& recipients, vector<Donor>& donors)
+//this is used for loading demo data, otherwise we calculate priorities manually
+
+void Database::calculatePriorities(vector<Recipient>& recipients) 
 {
     // priority for recipients = 101 - age + urgency 
     // prio for donors = 101 - age
 
     for (auto i : recipients)
-        i.priority = 101 - i.getAge() + i.getUrgency();
-    
-    for (auto i : donors)
-        i.priority = 101 - i.getAge();
+        i.setPriority(101 - i.getAge() + i.getUrgency());
 }

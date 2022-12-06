@@ -29,7 +29,7 @@ struct Database
 
     void loadDonorData(std::string file, std::vector<Donor>& donors);
     void loadRecipientData(std::string file, vector<Recipient>& recipients);
-    void calculatePriorities(vector<Recipient>& recipients, vector<Donor>& donors);
+    void calculatePriorities(vector<Recipient>& recipients);
     bool isValid(Donor &donor, Recipient &recipient);
 };
 
