@@ -5,6 +5,12 @@
 #include <vector>
 #include "TreeNode.h"
 
+/*
+Created By Ethan Willis
+gitHub: ethanbwillis
+email: ebwillis123@gmail.com
+*/
+
 class PQTree {
 	TreeNode* _root;
 	TreeNode* _end;
@@ -26,9 +32,11 @@ class PQTree {
 	void swap(TreeNode* a, TreeNode* b);
 	void findTail(TreeNode* root);
 
+	TreeNode* getRoot();
+
 public:
 	PQTree();
-	void createInPlace(std::vector<TreeNode*>& recipientsList);
+	void insert(Recipient recipient);
 	void print();
 	std::string intToBinary(int x);
 };
