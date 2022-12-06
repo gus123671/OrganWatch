@@ -2,7 +2,7 @@
 // Created by Nicolas Macias on 11/21/22.
 //
 
-#include "../.h/PQArray.h"
+#include "PQArray.h"
 
 PQArray::PQArray() {}
 
@@ -147,7 +147,14 @@ bool PQArray::isValid(Donor &donor, Recipient &recipient) {
         region = false;
     }
 
-    if (age && region) {
+    bool organ;
+    if (donor.organ == recipient.getOrgan()) {
+        organ = true;
+    } else {
+        organ = false;
+    }
+
+    if (age && region && organ) {
         return true;
     } else {
         return false;
