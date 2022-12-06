@@ -39,7 +39,7 @@ void Database::loadDonorData(std::string file, std::vector<Donor>& donors)
    }
 }
 
-void Database::loadRecipientData(std::string file, vector<Recipient>& recipients)
+void Database::loadRecipientData(std::string file, PQArray& recipientsArr, PQTree& recipientsTree)
 {
    {
        ifstream inFile(file);
@@ -60,7 +60,8 @@ void Database::loadRecipientData(std::string file, vector<Recipient>& recipients
            getline(stream, organToReceive, ',');
            getline(stream, location, ',');
 
-           recipients.push_back(Recipient(name, stoi(ageStr), organToReceive, location, 0));
+           recipientsArr.insert(Recipient(name, stoi(ageStr), organToReceive, location, 0));
+		   recipientsTree.insert(Recipient(name, stoi(ageStr), organToReceive, location, 0));
        }
    }
 }

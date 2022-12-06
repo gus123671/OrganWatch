@@ -27,7 +27,7 @@ struct Database
     PQTree recipientsTree;
 
     void loadDonorData(std::string file, std::vector<Donor>& donors);
-    void loadRecipientData(std::string file, vector<Recipient>& recipients);
+    void loadRecipientData(std::string file, PQArray& recipientsArr, PQTree& recipientsTree);
 };
 
 #endif
