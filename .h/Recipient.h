@@ -14,13 +14,16 @@ public:
     int age;
     string organ;
     string region;
+    int urgency;
     double priority;
 
-    Recipient(string name, int age, string organ, string region, double priority);
+    Recipient();
+    Recipient(string name, int age, string organ, string region, int urgency);
     string getName();
     int getAge();
     string getOrgan();
     string getRegion();
+    int getUrgency();
     double getPriority();
     void print();
 };

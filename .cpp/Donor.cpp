@@ -1,5 +1,6 @@
 //
 // Created by Nicolas Macias on 11/21/22.
+// Modified by Augustus Rodriguez on 12/6/22
 //
 
 #include "../.h/Donor.h"
@@ -10,11 +11,13 @@ using namespace std;
 
 Donor::Donor() {}
 
-Donor::Donor(string name, int age, string organ, string region) {
+Donor::Donor(string name, int age, string organ, string region) 
+{
     this->name = name;
     this->age = age;
     this->organ = organ;
     this->region = region;
+    this->priority = 0;
 }
 
 string Donor::getName() {

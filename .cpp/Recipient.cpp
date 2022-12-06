@@ -4,12 +4,21 @@
 
 #include "../.h/Recipient.h"
 
-Recipient::Recipient(string name, int age, string organ, string region, double priority) {
+Recipient::Recipient()
+{
+    this->name = "INVALID";
+    this->age = -1;
+    this->organ = "INVALID";
+    this->region = "INVALID";
+    this->urgency = -1;
+}
+
+Recipient::Recipient(string name, int age, string organ, string region, int urgency) {
     this->name = name;
     this->age = age;
     this->organ = organ;
     this->region = region;
-    this->priority = priority;
+    this->urgency = urgency;
 }
 
 string Recipient::getName() {
@@ -30,6 +39,11 @@ string Recipient::getRegion() {
 
 double Recipient::getPriority() {
     return this->priority;
+}
+
+int Recipient::getUrgency()
+{
+    return this->urgency;
 }
 
 void Recipient::print() {

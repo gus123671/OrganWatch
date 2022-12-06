@@ -1,5 +1,6 @@
 //
 // Created by Nicolas Macias on 11/21/22.
+// Modified by Augustus Rodriguez on 12/6/22
 //
 
 #ifndef PQARRAY_DONOR_H
@@ -15,9 +16,11 @@ public:
     int age;
     string organ;
     string region;
+    int priority;
 
     Donor();
     Donor(string name, int age, string organ, string region);
+
     string getName();
     int getAge();
     string getOrgan();

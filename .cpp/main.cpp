@@ -17,7 +17,7 @@ using namespace std;
 bool donate(Database& d);
 bool receive(Database& d);
 void showData(Database& d);
-void loadData(Database& d);
+void loadDemoData(Database& d);
 bool validateName(string name);
 bool validateAge(string age);
 
@@ -33,7 +33,7 @@ int main()
 		cout << "1) Donate an organ" << endl;
 		cout << "2) Receive an organ" << endl;
 		cout << "3) Show data" << endl;
-		cout << "4) Load data" << endl;
+		cout << "4) Load demo data" << endl;
 		cout << "0) Exit" << endl;
 
 		cin >> input;
@@ -65,7 +65,7 @@ int main()
 
 		else if (input == 4)
 		{
-			loadData(*d);
+			loadDemoData(*d);
 			continue;
 		}
 
@@ -184,10 +184,35 @@ bool donate(Database& d)
 
 	cout << "Sucessfully entered " << name << " into The Organ Donation Registry to donate their " << organsMap[organ] << "!" << endl;
 	cout << endl;
-	return true;
 
-	// FIXME: implement matching algorithm here
+	// matching algo: match donor in d.donors to recipient in d.recipientsArr an d.recipientsTree
 
+	Recipient r;
+	Donor donor;
+
+	int pos;
+	for (pos = 0; pos < d.donors.size(); pos++)
+	{
+		donor = d.donors[pos];
+	 	r = d.recipientsArr.extractValid(d.donors[pos]);
+	}
+
+	if (r.getAge() != -1)
+	{
+		cout << donor.getName() << "'s " << donor.getOrgan() << " has been matched to " << r.getName() << "!" << endl;
+		cout << "Organ Recipient:" << endl;
+		cout << "Name: " << r.getName() << endl;
+		cout << "Age: " << r.getAge() << endl;
+		cout << "Needed organ: " << r.getOrgan() << endl;
+		cout << "Position on waitlist: " << pos << endl;
+		cout << "Transplant surgery will now commence. " << donor.getName() << " and " << r.getName() << " have been removed from the registry." << endl;
+		return true;
+	}
+	else
+	{
+		cout << "There is no available recipient for " << donor.getName() << "'s " << donor.getOrgan() << ". Transplant surgery will wait until one is found." << endl;
+		return false;
+	}
 }
 
 bool receive(Database& d)
@@ -383,14 +408,20 @@ void showData(Database& d)
 	return;
 }
 
-void loadData(Database& d)
+void loadDemoData(Database& d)
 {
 	d.loadDonorData("../data/donors.csv", d.donors);
 	d.loadRecipientData("../data/recipients.csv", d.recipients);
 
 	// assign prio to recipients
 
+	d.calculatePriorities(d.recipients, d.donors);
 
+	for (auto i : d.recipients)
+		{
+			d.recipientsArr.insert(i);
+			// d.recipientsTree.insert(i);
+		}
 }
 
 bool validateName(string name)

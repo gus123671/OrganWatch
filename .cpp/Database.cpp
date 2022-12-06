@@ -54,13 +54,15 @@ void Database::loadRecipientData(std::string file, vector<Recipient>& recipients
            string ageStr;
            string organToReceive;
            string location;
+           string urgency;
 
            getline(stream, name, ',');
            getline(stream, ageStr, ',');
            getline(stream, organToReceive, ',');
            getline(stream, location, ',');
+           getline(stream, urgency, ',');
 
-           recipients.push_back(Recipient(name, stoi(ageStr), organToReceive, location, 0)); // have to go over twice and assign prio
+           recipients.push_back(Recipient(name, stoi(ageStr), organToReceive, location, stoi(urgency))); // have to go over twice and assign prio
        }
    }
 }
@@ -92,7 +94,9 @@ void Database::calculatePriorities(vector<Recipient>& recipients, vector<Donor>&
     // priority for recipients = 101 - age + urgency 
     // prio for donors = 101 - age
 
+    for (auto i : recipients)
+        i.priority = 101 - i.getAge() + i.getUrgency();
     
-
-
+    for (auto i : donors)
+        i.priority = 101 - i.getAge();
 }
