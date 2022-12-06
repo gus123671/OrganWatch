@@ -4,6 +4,7 @@
 #include <queue>
 #include <vector>
 #include "TreeNode.h"
+#include "Recipient.h"
 
 /*
 Created By Ethan Willis

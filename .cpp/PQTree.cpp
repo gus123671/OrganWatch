@@ -234,6 +234,6 @@ void PQTree::findTail(TreeNode* root) {
 }
 
 void PQTree::insert(Recipient recipient) {
-	TreeNode* recipientNode = new TreeNode(recipient);
+	TreeNode* recipientNode = new TreeNode(recipient.getPriority());
 	this->findLocation(this->_root, recipientNode);
 }
