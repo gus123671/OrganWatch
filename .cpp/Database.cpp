@@ -62,7 +62,7 @@ void Database::loadRecipientData(std::string file, vector<Recipient>& recipients
            getline(stream, location, ',');
            getline(stream, urgency, ',');
 
-           recipients.push_back(Recipient(name, stoi(ageStr), organToReceive, location, stoi(urgency))); // have to go over twice and assign prio
+           recipients.push_back(Recipient(name, stoi(ageStr), organToReceive, location, stoi(urgency), 101 - stoi(ageStr) + stoi(urgency))); // have to go over twice and assign prio
        }
    }
 }
@@ -91,11 +91,11 @@ bool Database::isValid(Donor &donor, Recipient &recipient) {
 
 //this is used for loading demo data, otherwise we calculate priorities manually
 
-void Database::calculatePriorities(vector<Recipient>& recipients) 
-{
-    // priority for recipients = 101 - age + urgency 
-    // prio for donors = 101 - age
+// void Database::calculatePriorities(vector<Recipient>& recipients) 
+// {
+//     // priority for recipients = 101 - age + urgency 
+//     // prio for donors = 101 - age
 
-    for (auto i : recipients)
-        i.setPriority(101 - i.getAge() + i.getUrgency());
-}
+//     for (auto i : recipients)
+//         i.setPriority(101 - i.getAge() + i.getUrgency());
+// }

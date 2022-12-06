@@ -336,21 +336,11 @@ bool receive(Database& d)
 
 	} while (true);
 
-	/*
-		Here, we'd instantiate a Recipient object and place it into our priority queues. 
+	d.recipientsArr.insert(Recipient(name, stoi(age), organsMap[organ], regionsMap[region], urgency, 101 - stoi(age) + urgency));
+	// FIXME: d.recipientsTree.insert(Recipient(name, stoi(age), organsMap[organ], regionsMap[region], urgency, 101 - stoi(age) + urgency));
 
-		Waiting on matching algo before proceeding
-	*/
+	
 
-	d.recipients.push_back(Recipient(name, stoi(age), organsMap[organ], regionsMap[region], 0));
-
-	for (auto i : d.recipients)
-        i.priority = 101 - i.getAge() + i.getUrgency();
-
-	d.recipientsArr.insert(Recipient(name, stoi(age), organsMap[organ], regionsMap[region], 0));
-	// d.recipientsTree.insertRecipient(Recipient(name, stoi(age), organsMap[organ], regionsMap[region], 0));
-
-	// FIXME: implement matching algorithm here
 	
 	return true;
 }
@@ -421,18 +411,14 @@ void loadDemoData(Database& d)
 	d.loadDonorData("../data/donors.csv", d.donors);
 	d.loadRecipientData("../data/recipients.csv", d.recipients);
 
-	// assign prio to recipients
-
-	d.calculatePriorities(d.recipients, d.donors);
-	
-
 	for (auto i : d.recipients)
 	{
 		d.recipientsArr.insert(i);
-		// d.recipientsTree.insert(i);
+		// FIXME: d.recipientsTree.insert(i);
 	}
 
 	cout << d.recipientsArr.queue[0].getName() << endl;
+	// cout << d.recipientsTree.
 }
 
 bool validateName(string name)

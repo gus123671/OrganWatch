@@ -11,15 +11,16 @@ Recipient::Recipient()
     this->organ = "INVALID";
     this->region = "INVALID";
     this->urgency = -1;
+    this->priority = 0;
 }
 
-Recipient::Recipient(string name, int age, string organ, string region, int urgency) {
+Recipient::Recipient(string name, int age, string organ, string region, int urgency, int priority) {
     this->name = name;
     this->age = age;
     this->organ = organ;
     this->region = region;
     this->urgency = urgency;
-    this->priority = 0;
+    this->priority = priority;
 }
 
 string Recipient::getName() {

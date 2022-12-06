@@ -2,7 +2,7 @@
 // Created by Nicolas Macias on 11/21/22.
 //
 
-#include "PQArray.h"
+#include "../.h/PQArray.h"
 
 PQArray::PQArray() {}
 
@@ -95,7 +95,7 @@ void PQArray::heapifyDown(int pos) {
 Recipient PQArray::extractValid(Donor donor) {
     // Base case
     if (this->queue.size() == 0) {
-        return Recipient("INVALID", -1, "INVALID", "INVALID", -1);
+        return Recipient("INVALID", -1, "INVALID", "INVALID", -1, -1);
     }
 
     // Create vector for invalid extracts
@@ -129,7 +129,7 @@ Recipient PQArray::extractValid(Donor donor) {
     }
 
     // Return dummy invalid recipient if not found
-    return Recipient("INVALID", -1, "INVALID", "INVALID", -1);
+    return Recipient("INVALID", -1, "INVALID", "INVALID", -1, -1);
 }
 
 bool PQArray::isValid(Donor &donor, Recipient &recipient) {

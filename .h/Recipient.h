@@ -15,10 +15,10 @@ public:
     string organ;
     string region;
     int urgency;
-    int priority;
+    int priority = 0;
 
     Recipient();
-    Recipient(string name, int age, string organ, string region, int urgency);
+    Recipient(string name, int age, string organ, string region, int urgency, int priority);
     string getName();
     int getAge();
     string getOrgan();
