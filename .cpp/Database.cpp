@@ -41,29 +41,67 @@ void Database::loadDonorData(std::string file, std::vector<Donor>& donors)
 
 void Database::loadRecipientData(std::string file)
 {
-   {
-       ifstream inFile(file);
+    ifstream inFile(file);
 
-       std::string lineFromFile;
-       getline(inFile, lineFromFile); // skip header
+    std::string lineFromFile;
+    getline(inFile, lineFromFile); // skip header
 
-       while (getline(inFile, lineFromFile)) {
-           istringstream stream(lineFromFile);
+    while (getline(inFile, lineFromFile)) 
+    {
+        istringstream stream(lineFromFile);
 
-           string name;
-           string ageStr;
-           string organToReceive;
-           string location;
-           string urgency;
+        string name;
+        string ageStr;
+        string organToReceive;
+        string location;
+        string urgency;
 
-           getline(stream, name, ',');
-           getline(stream, ageStr, ',');
-           getline(stream, organToReceive, ',');
-           getline(stream, location, ',');
-           getline(stream, urgency, ',');
+        getline(stream, name, ',');
+        getline(stream, ageStr, ',');
+        getline(stream, organToReceive, ',');
+        getline(stream, location, ',');
+        getline(stream, urgency, ',');
 
-           recipientsArr.insert(Recipient(name, stoi(ageStr), organToReceive, location, stoi(urgency), 101 - stoi(ageStr) + stoi(urgency)));
-		   recipientsTree.insert(Recipient(name, stoi(ageStr), organToReceive, location, stoi(urgency), 101 - stoi(ageStr) + stoi(urgency)));
-       }
-   }
+        recipientsArr.insert(Recipient(name, stoi(ageStr), organToReceive, location, stoi(urgency), 101 - stoi(ageStr) + stoi(urgency)));
+        recipientsTree.insert(Recipient(name, stoi(ageStr), organToReceive, location, stoi(urgency), 101 - stoi(ageStr) + stoi(urgency)));
+    }
 }
+
+void Database::matchDonor(Donor& donor, PQTree& tree)
+{
+    vector<Recipient> vector = tree.createVector();
+    PQTree temp = tree;
+    PQTree newTree;
+    if (isSame(tree.extract(), donor)) {
+        tree.deleteTopPriority();
+        return;
+    }
+    else {
+        while (!isSame(tree.extract(), donor)) {
+            PQTree t = temp;
+            t.extract();
+            temp = tree;
+        }
+        TreeNode* remove = temp.getRoot();
+        Recipient r = remove->recipient;
+        temp.deleteTopPriority();
+        for (int i = 0; i < vector.size(); i++) {
+            if (isSame(vector[i], donor)) {
+                vector.erase(vector.begin() + i);
+            }
+            for (int j = 0; j < vector.size(); j++) {
+                newTree.insert(vector[i]);
+                return;
+            }
+        }
+    }
+} 
+
+bool Database::isSame(Recipient a, Donor b) {
+    if ((a.getAge() <=13 && b.getAge() <=13 || a.getAge() >=13 && b.getAge() >=13) && a.getOrgan().compare(b.getOrgan()) == 0 && a.getRegion().compare(b.getRegion()) == 0) {
+        return true;
+    }
+    else {
+        return false;
+    }
+} 

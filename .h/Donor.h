@@ -16,7 +16,6 @@ public:
     int age;
     string organ;
     string region;
-    int priority;
 
     Donor();
     Donor(string name, int age, string organ, string region);
@@ -24,6 +23,7 @@ public:
     string getName();
     int getAge();
     string getOrgan();
+    string getRegion();
 };
 
 #endif 

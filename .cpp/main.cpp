@@ -190,9 +190,6 @@ bool donate(Database& d)
 
 	d.donors.push_back(Donor(name, stoi(age), organsMap[organ], regionsMap[region]));
 
-	for (auto i : d.donors)
-        i.priority = 101 - i.getAge();
-
 	cout << "Sucessfully entered " << name << " into The Organ Donation Registry to donate their " << organsMap[organ] << "!" << endl;
 	cout << endl;
 
@@ -406,7 +403,7 @@ bool match(Database& d)
 	for (pos = 0; pos < d.donors.size(); pos++)
 	{
 		donor = d.donors[pos];
-	 	r = d.recipientsArr.extractValid(d.donors[pos]);
+		d.matchDonor(donor, d.recipientsTree);
 	}
 
 	if (r.getAge() != -1)
@@ -416,7 +413,6 @@ bool match(Database& d)
 		cout << "Name: " << r.getName() << endl;
 		cout << "Age: " << r.getAge() << endl;
 		cout << "Needed organ: " << r.getOrgan() << endl;
-		cout << "Position on waitlist: " << pos << endl;
 		cout << "Transplant surgery will now commence. " << donor.getName() << " and " << r.getName() << " have been removed from the registry." << endl;
 		return true;
 	}
@@ -425,7 +421,10 @@ bool match(Database& d)
 		cout << "There is no available recipient for " << donor.getName() << "'s " << donor.getOrgan() << ". Transplant surgery will wait until one is found." << endl;
 		return false;
 	}
+
 	cout << endl;
+
+	return true;
 }
 
 bool validateName(string name)

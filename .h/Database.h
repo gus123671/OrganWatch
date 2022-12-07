@@ -28,8 +28,8 @@ struct Database
 
     void loadDonorData(std::string file, std::vector<Donor>& donors);
     void loadRecipientData(std::string file);
-    // void calculatePriorities(vector<Recipient>& recipients);
-    bool isValid(Donor &donor, Recipient &recipient);
+    void matchDonor(Donor& donor, PQTree& tree);
+    bool isSame(Recipient a, Donor b);
 };
 
 #endif

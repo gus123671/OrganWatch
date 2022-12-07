@@ -17,7 +17,6 @@ Donor::Donor(string name, int age, string organ, string region)
     this->age = age;
     this->organ = organ;
     this->region = region;
-    this->priority = 0;
 }
 
 string Donor::getName() {
@@ -30,4 +29,9 @@ int Donor::getAge() {
 
 string Donor::getOrgan() {
     return this->organ;
+}
+
+string Donor::getRegion()
+{
+    return this->region;
 }
