@@ -13,6 +13,7 @@ email: ebwillis123@gmail.com
 */
 
 class PQTree {
+	//tree atrributes
 	TreeNode* _root;
 	TreeNode* _end;
 	int _size = 0;
@@ -21,6 +22,7 @@ class PQTree {
 	string binarySize;
 	string binarySizeTail;
 
+	//private functions
 	double retrieveHighestPriority();
 	void findLocation(TreeNode*& root, TreeNode*& recipient);
 	TreeNode* findLocationPass(char leftOrRight, TreeNode*& root, TreeNode*& temp);
@@ -35,9 +37,12 @@ class PQTree {
 	vector<TreeNode*> levelOrderTraverse(TreeNode* root);
 	
 	
+	
 
 public:
+	//Public functions to be called on PQTree objects in different classes/files
 	PQTree();
+	Recipient extractValid(Donor& donor);
 	void insert(Recipient recipient);
 	void print();
 	std::string intToBinary(int x);
@@ -47,4 +52,7 @@ public:
 	TreeNode* getRoot();
 	vector<Recipient> createVector();
 	void printTopTen();
+	int getSize();
+	Recipient completeExtract();
+	bool isValid(Donor& donor, Recipient& recipient);
 };
