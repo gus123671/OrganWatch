@@ -295,3 +295,7 @@ void PQTree::printTopTen() {
 		cout << topTen[i].getName() << ": " << topTen[i].getPriority();
 	}
 }
+
+int PQTree::getSize() {
+	return this->_size;
+}
