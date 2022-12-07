@@ -18,7 +18,7 @@ public:
     void insert(Recipient recipient);
     Recipient extract();
     void heapifyDown(int pos);
-    Recipient extractValid(Donor donor);
+    Recipient extractValid(Donor& donor);
     bool isValid(Donor &donor, Recipient &recipient);
 };
 
