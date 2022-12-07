@@ -2,7 +2,7 @@
 // Created by Nicolas Macias on 11/21/22.
 //
 
-#include "../h/Recipient.h"
+#include "../.h/Recipient.h"
 
 Recipient::Recipient()
 {

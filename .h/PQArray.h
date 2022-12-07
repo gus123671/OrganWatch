@@ -19,7 +19,7 @@ public:
     Recipient extract();
     void heapifyDown(int pos);
     Recipient extractValid(Donor& donor);
-    bool isValid(Donor &donor, Recipient &recipient);
+    bool isValid(Donor& donor, Recipient& recipient);
 };
 
 

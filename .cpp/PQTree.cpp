@@ -1,4 +1,4 @@
-#include "PQTree.h"
+#include "../.h/PQTree.h"
 #include <bitset>
 
 /*
@@ -219,13 +219,19 @@ void PQTree::swap(TreeNode* a, TreeNode* b) {
 	a->priority = b->priority;
 	a->recipient = b->recipient;
 	b->priority = val;
-	b->recipient = a->recipient;
+	b->recipient = r;
 }
 
 void PQTree::findTail(TreeNode* root) {
 	if (root == nullptr || count + 1 > binarySizeTail.size() + 1) {
 		return;
 	}
+
+	if (root->right == nullptr || root->left == nullptr) {
+        this->_end = root;
+        return;
+	}
+
 	if (binarySizeTail[count + 1] == '1') {
 		this->_end = root->right;
 		count++;
@@ -302,7 +308,7 @@ int PQTree::getSize() {
 
 Recipient PQTree::extractValid(Donor& donor) {
 	if (this->_size == 0)
-		return (Recipient("INVALID", -1, "INVALID", "INVALID", -1));
+		return (Recipient("INVALID", -1, "INVALID", "INVALID", -1, -1));
 
 	PQTree extracted;
 
@@ -326,10 +332,10 @@ Recipient PQTree::extractValid(Donor& donor) {
 
 bool PQTree::isValid(Donor& donor, Recipient& recipient) {
 	bool age = true;
-	if ((donor.age >= 1 && donor.age <= 12) && (recipient.age >= 13 && recipient.age <= 1000)) {
+	if ((donor.age >= 1 && donor.age <= 12) && (recipient.age >= 13 && recipient.age <= 100)) {
 		age = false;
 	}
-	else if ((donor.age >= 13 && donor.age <= 1000) && (recipient.age >= 1 && recipient.age <= 12)) {
+	else if ((donor.age >= 13 && donor.age <= 100) && (recipient.age >= 1 && recipient.age <= 12)) {
 		age = false;
 	}
 
