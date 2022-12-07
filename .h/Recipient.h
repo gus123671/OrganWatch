@@ -19,6 +19,7 @@ public:
 
     Recipient();
     Recipient(string name, int age, string organ, string region, int urgency, int priority);
+    void equal(Recipient& rh);
     string getName();
     int getAge();
     string getOrgan();
