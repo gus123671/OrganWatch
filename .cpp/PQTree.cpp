@@ -1,4 +1,4 @@
-#include "../.h/PQTree.h"
+#include "PQTree.h"
 #include <bitset>
 
 /*
@@ -294,4 +294,71 @@ void PQTree::printTopTen() {
 	for (int i = topTen.size() - 1; i >= 0; i--) {
 		cout << topTen[i].getName() << ": " << topTen[i].getPriority();
 	}
+}
+
+int PQTree::getSize() {
+	return this->_size;
+}
+
+Recipient PQTree::extractValid(Donor& donor) {
+	if (this->_size == 0)
+		return (Recipient("INVALID", -1, "INVALID", "INVALID", -1));
+
+	PQTree extracted;
+
+
+	while (this->_size != 0) {
+		Recipient recipient = this->completeExtract();
+		if (this->isValid(donor, recipient)) {
+			while (extracted._size != 0) {
+				this->insert(extracted.completeExtract());
+			}
+			return recipient;
+		}
+		else {
+			extracted.insert(recipient);
+		}
+	}
+	while (extracted._size != 0) {
+		this->insert(extracted.completeExtract());
+	}
+}
+
+bool PQTree::isValid(Donor& donor, Recipient& recipient) {
+	bool age = true;
+	if ((donor.age >= 1 && donor.age <= 12) && (recipient.age >= 13 && recipient.age <= 1000)) {
+		age = false;
+	}
+	else if ((donor.age >= 13 && donor.age <= 1000) && (recipient.age >= 1 && recipient.age <= 12)) {
+		age = false;
+	}
+
+	bool region;
+	if (donor.region == recipient.region) {
+		region = true;
+	}
+	else {
+		region = false;
+	}
+
+	bool organ;
+	if (donor.organ == recipient.getOrgan()) {
+		organ = true;
+	}
+	else {
+		organ = false;
+	}
+
+	if (organ) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+Recipient PQTree::completeExtract() {
+	Recipient r = this->extract();
+	this->deleteNode();
+	return r;
 }
