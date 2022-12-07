@@ -47,4 +47,5 @@ public:
 	TreeNode* getRoot();
 	vector<Recipient> createVector();
 	void printTopTen();
+	int getSize();
 };
