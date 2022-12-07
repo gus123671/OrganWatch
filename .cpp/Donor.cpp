@@ -31,3 +31,8 @@ int Donor::getAge() {
 string Donor::getOrgan() {
     return this->organ;
 }
+
+string Donor::getRegion()
+{
+    return this->region;
+}

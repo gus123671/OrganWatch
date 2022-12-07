@@ -24,6 +24,7 @@ public:
     string getName();
     int getAge();
     string getOrgan();
+    string getRegion();
 };
 
 #endif 
