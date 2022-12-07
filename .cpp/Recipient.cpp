@@ -2,7 +2,7 @@
 // Created by Nicolas Macias on 11/21/22.
 //
 
-#include "../.h/Recipient.h"
+#include "../h/Recipient.h"
 
 Recipient::Recipient()
 {
@@ -59,4 +59,13 @@ void Recipient::print() {
     cout << organ << endl;
     cout << region << endl;
     cout << priority << endl << endl;
+}
+
+void Recipient::equal(Recipient& rh) {
+    this->name = rh.name;
+    this->age = rh.age;
+    this->organ = rh.organ;
+    this->region = rh.region;
+    this->urgency = rh.urgency;
+    this->priority = rh.priority;
 }
